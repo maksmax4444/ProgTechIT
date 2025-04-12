@@ -1,0 +1,11 @@
+C:\Users\Maksym\Documents\LibraryDataCenter\LibraryDataCenter\bin\Debug\net8.0\LibraryDataLayer.deps.json
+C:\Users\Maksym\Documents\LibraryDataCenter\LibraryDataCenter\bin\Debug\net8.0\LibraryDataLayer.dll
+C:\Users\Maksym\Documents\LibraryDataCenter\LibraryDataCenter\bin\Debug\net8.0\LibraryDataLayer.pdb
+C:\Users\Maksym\Documents\LibraryDataCenter\LibraryDataCenter\obj\Debug\net8.0\LibraryDataLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Maksym\Documents\LibraryDataCenter\LibraryDataCenter\obj\Debug\net8.0\LibraryDataLayer.AssemblyInfoInputs.cache
+C:\Users\Maksym\Documents\LibraryDataCenter\LibraryDataCenter\obj\Debug\net8.0\LibraryDataLayer.AssemblyInfo.cs
+C:\Users\Maksym\Documents\LibraryDataCenter\LibraryDataCenter\obj\Debug\net8.0\LibraryDataLayer.csproj.CoreCompileInputs.cache
+C:\Users\Maksym\Documents\LibraryDataCenter\LibraryDataCenter\obj\Debug\net8.0\LibraryDataLayer.dll
+C:\Users\Maksym\Documents\LibraryDataCenter\LibraryDataCenter\obj\Debug\net8.0\refint\LibraryDataLayer.dll
+C:\Users\Maksym\Documents\LibraryDataCenter\LibraryDataCenter\obj\Debug\net8.0\LibraryDataLayer.pdb
+C:\Users\Maksym\Documents\LibraryDataCenter\LibraryDataCenter\obj\Debug\net8.0\ref\LibraryDataLayer.dll

@@ -7,14 +7,30 @@
   "targets": {
     ".NETCoreApp,Version=v8.0": {
       "LibraryLogicLayer/1.0.0": {
+        "dependencies": {
+          "LibraryDataLayer": "1.0.0"
+        },
         "runtime": {
           "LibraryLogicLayer.dll": {}
+        }
+      },
+      "LibraryDataLayer/1.0.0": {
+        "runtime": {
+          "LibraryDataLayer.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
   },
   "libraries": {
     "LibraryLogicLayer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LibraryDataLayer/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

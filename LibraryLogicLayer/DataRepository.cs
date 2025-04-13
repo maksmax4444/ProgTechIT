@@ -2,49 +2,70 @@
 
 namespace LibraryLogicLayer
 {
-    internal class DataRepository
+    public class DataRepository
     {
-        DataContext dataContext = new DataContext();
-
-        void BorrowCatalog(State s, Users u)
+        public DataContext dataContext;
+        public void initRepository() 
         {
-            UserEvent userEvent = new UserEvent();
-            userEvent.eventId = dataContext.events.Count;
-            userEvent.user = u;
-            userEvent.state = s;
-            userEvent.borrowing = true;
+            List<Catalog> catalogList = new List<Catalog>();
+            List<State> stateList = new List<State>();
+            List<Users> usersList = new List<Users>();
+            List<Event> eventList = new List<Event>();
+            dataContext = new DataContext(catalogList, eventList, usersList, stateList);
+        }
+
+        public void BorrowCatalog(int stateId, int userId)
+        {
+            Users u = GetUsersFromId(userId);
+            State s = GetStateFromId(stateId);
+            s.nrOfBooks--;
+            if (s.nrOfBooks < 0) 
+            {
+                s.nrOfBooks = 0;
+                throw new Exception("Not enought books to borrow!");
+            }
+            UserEvent userEvent = new UserEvent(dataContext.events.Count, s, u, true);
             dataContext.events.Add(userEvent);
         }
 
-        void ReturnCatalog(State s, Users u)
+         public void ReturnCatalog(int stateId, int userId)
         {
-            UserEvent userEvent = new UserEvent();
-            userEvent.eventId = dataContext.events.Count;
-            userEvent.user = u;
-            userEvent.state = s;
-            userEvent.borrowing = false;
+            Users u = GetUsersFromId(userId);
+            State s = GetStateFromId(stateId);
+            s.nrOfBooks++;
+            UserEvent userEvent = new UserEvent(dataContext.events.Count, s, u, true);
             dataContext.events.Add(userEvent);
         }
 
-        void DestoryCatalog(State s)
+        public void DestoryCatalog(int stateId)
         {
-            DatabaseEvent databaseEvent = new DatabaseEvent();
-            databaseEvent.eventId = dataContext.events.Count;
-            databaseEvent.state = s;
-            databaseEvent.addition = true;
+            State s = GetStateFromId(stateId);
+            s.nrOfBooks--;
+            if (s.nrOfBooks < 0)
+            {
+                throw new Exception("Not enought books to destroy!");
+            }
+            DatabaseEvent databaseEvent = new DatabaseEvent(dataContext.events.Count, s, true);
             dataContext.events.Add(databaseEvent);
         }
 
-        void AddCatalog(State s)
+        public void AddCatalog(int stateId)
         {
-            DatabaseEvent databaseEvent = new DatabaseEvent();
-            databaseEvent.eventId = dataContext.events.Count;
-            databaseEvent.state = s;
-            databaseEvent.addition = false;
+            State s = GetStateFromId(stateId);
+            s.nrOfBooks++;
+            DatabaseEvent databaseEvent = new DatabaseEvent(dataContext.events.Count, s, true);
             dataContext.events.Add(databaseEvent);
         }
 
-        public Users GetUsersFromId(int id)
+        public void AddNewCatalogType(string title, string author, int nrOfPages)
+        {
+            Catalog c = new Catalog(dataContext.catalogs.Count, title, author, nrOfPages);
+            dataContext.catalogs.Add(c);
+            State s = new State(dataContext.states.Count, 0, c);
+            dataContext.states.Add(s);
+        }
+
+        Users GetUsersFromId(int id)
         {
             foreach (Users users in dataContext.users)
             {
@@ -53,7 +74,7 @@ namespace LibraryLogicLayer
             throw new Exception("No user with that id in database.");
         }
 
-        public Event GetEventFromId(int id)
+        Event GetEventFromId(int id)
         {
             foreach (Event e in dataContext.events)
             {
@@ -62,7 +83,7 @@ namespace LibraryLogicLayer
             throw new Exception("No event with that id in database.");
         }
 
-        public State GetStateFromId(int id)
+        State GetStateFromId(int id)
         {
             foreach (State state in dataContext.states)
             {
@@ -71,7 +92,7 @@ namespace LibraryLogicLayer
             throw new Exception("No state with that id in database.");
         }
 
-        public Catalog GetCatalogFromId(int id)
+        Catalog GetCatalogFromId(int id)
         {
             foreach (Catalog catalog in dataContext.catalogs)
             {

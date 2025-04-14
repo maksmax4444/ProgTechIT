@@ -31,6 +31,25 @@ namespace DataLayerTest
         }
 
         [TestMethod]
+        public void TestConstructorUserEvent()
+        {
+            Catalog c = new Catalog(1, "TestTitle", "TestAuthor", 10);
+            Users u = new Users(1, "Alicja", "Makota");
+            State s = new State(1, 10, c);
+            UserEvent e = new UserEvent(1, s, u);
+            Assert.IsTrue(e.eventId == 1 && e.state == s && e.user == u);
+        }
+
+        [TestMethod]
+        public void TestConstructorDatabaseEvent()
+        {
+            Catalog c = new Catalog(1, "TestTitle", "TestAuthor", 10);
+            State s = new State(1, 10, c);
+            DatabaseEvent e = new DatabaseEvent(1, s);
+            Assert.IsTrue(e.eventId == 1 && e.state == s);
+        }
+
+        [TestMethod]
         public void TestConstructorUsers()
         {
             Users u = new Users(1, "Jan", "Kowalski");

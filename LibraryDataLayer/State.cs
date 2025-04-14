@@ -1,6 +1,6 @@
 ﻿namespace LibraryDataLayer
 {
-    public class State
+    internal class State
     {
         public int stateId { get; set; }
         public int nrOfBooks { get; set;}

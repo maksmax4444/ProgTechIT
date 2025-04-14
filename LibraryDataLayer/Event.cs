@@ -1,6 +1,6 @@
 ﻿namespace LibraryDataLayer
 {
-    public class Event
+    internal class Event
     {
         public int eventId { get; set; }
         public State state { get; set; }

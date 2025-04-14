@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("LogicLayerTest")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("LibraryLogicLayer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fae6ab4eb7567378bacbc87c1eaf646c67cb149e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0f32781d5fbecc01ee0d600ba76f816c432b985c")]
 [assembly: System.Reflection.AssemblyProductAttribute("LibraryLogicLayer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LibraryLogicLayer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

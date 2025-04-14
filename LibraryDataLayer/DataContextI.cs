@@ -2,18 +2,12 @@
 {
     public abstract class DataContextI
     {
-        public List<Catalog> catalogs;
-        public List<Event> events;
-        public List<Users> users;
-        public List<State> states;
+        public abstract void AddCatalog(string title, string author, int nrOfPages);
+        public abstract void AddUser(string firstName, string lastName);
+        public abstract void AddUserEvent(int stateId, int userId);
+        public abstract void AddDatabaseEvent(int stateId);
+        public abstract void AddState(int nrOfBooks, int catalogId);
 
-        public DataContextI(List<Catalog> catalogs, List<Event> events, 
-                                List<Users> users, List<State> states)
-        {
-            this.catalogs = catalogs;
-            this.events = events;
-            this.users = users;
-            this.states = states;
-        }
+        public abstract void ChangeState(int stateId, int change);
     }
 }

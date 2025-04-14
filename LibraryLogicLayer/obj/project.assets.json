@@ -27,23 +27,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kuba\\.nuget\\packages\\": {},
+    "C:\\Users\\Maksym\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kuba\\Desktop\\Git - PT\\LibraryLogicLayer\\LibraryLogicLayer.csproj",
+      "projectUniqueName": "C:\\Users\\Maksym\\Documents\\ProgTechRepo\\ProgTechIT\\LibraryLogicLayer\\LibraryLogicLayer.csproj",
       "projectName": "LibraryLogicLayer",
-      "projectPath": "C:\\Users\\kuba\\Desktop\\Git - PT\\LibraryLogicLayer\\LibraryLogicLayer.csproj",
-      "packagesPath": "C:\\Users\\kuba\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kuba\\Desktop\\Git - PT\\LibraryLogicLayer\\obj\\",
+      "projectPath": "C:\\Users\\Maksym\\Documents\\ProgTechRepo\\ProgTechIT\\LibraryLogicLayer\\LibraryLogicLayer.csproj",
+      "packagesPath": "C:\\Users\\Maksym\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Maksym\\Documents\\ProgTechRepo\\ProgTechIT\\LibraryLogicLayer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\kuba\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Maksym\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -58,8 +58,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\kuba\\Desktop\\Git - PT\\LibraryDataLayer\\LibraryDataLayer.csproj": {
-              "projectPath": "C:\\Users\\kuba\\Desktop\\Git - PT\\LibraryDataLayer\\LibraryDataLayer.csproj"
+            "C:\\Users\\Maksym\\Documents\\ProgTechRepo\\ProgTechIT\\LibraryDataLayer\\LibraryDataLayer.csproj": {
+              "projectPath": "C:\\Users\\Maksym\\Documents\\ProgTechRepo\\ProgTechIT\\LibraryDataLayer\\LibraryDataLayer.csproj"
             }
           }
         }
@@ -95,7 +95,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

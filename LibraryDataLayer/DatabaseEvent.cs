@@ -1,12 +1,10 @@
 ﻿namespace LibraryDataLayer
 {
-    public class DatabaseEvent: Event
+    internal class DatabaseEvent: Event
     {
-        public bool addition { get; set; } //true addition false deletion
-
-        public DatabaseEvent(int eventId, State state, bool addition): base(eventId, state)
+        public DatabaseEvent(int eventId, State state): base(eventId, state)
         {
-            this.addition = addition;
+            
         }
     }
 }

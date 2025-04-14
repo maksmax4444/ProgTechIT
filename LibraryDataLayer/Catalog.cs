@@ -1,6 +1,6 @@
 ﻿namespace LibraryDataLayer
 {
-    public class Catalog
+    internal class Catalog
     {
         public int catalogId { get; set; }
         public string title { get; set; }

@@ -5,37 +5,31 @@ namespace LibraryLogicLayer
     public class DataService
     {
         DataRepository dataRepository;
-        int currentUser;
-        int currentState;
 
-        public void SetCurrentUser(int id)
+        public void InitDataRepository()
         {
-            currentUser = id;
+            dataRepository = new DataRepository();
+            dataRepository.InitRepository();
         }
 
-        public void SetCurrentState(int id)
+        public void BorrowCatalog(int StateId, int UserId)
         {
-            currentState = id;
+            dataRepository.BorrowCatalog(StateId, UserId);
         }
 
-        void BorrowCatalog()
+        public void ReturnCatalog(int StateId, int UserId)
         {
-            dataRepository.BorrowCatalog(currentState, currentUser);
+            dataRepository.ReturnCatalog(StateId, UserId);
         }
 
-        void ReturnCatalog()
+        public void DestoryCatalog(int StateId)
         {
-            dataRepository.ReturnCatalog(currentState, currentUser);
+            dataRepository.DestoryCatalog(StateId);
         }
 
-        void DestoryCatalog()
+        public void AddCatalog(int StateId)
         {
-            dataRepository.DestoryCatalog(currentState);
-        }
-
-        void AddCatalog()
-        {
-            dataRepository.AddCatalog(currentState);
+            dataRepository.AddCatalog(StateId);
         }
     }
 }

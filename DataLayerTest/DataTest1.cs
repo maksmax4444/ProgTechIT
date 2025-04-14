@@ -3,7 +3,7 @@
 namespace DataLayerTest
 {
     [TestClass]
-    public sealed class Test1
+    public sealed class DataTest1
     {
         [TestMethod]
         public void TestConstructorCatalog()

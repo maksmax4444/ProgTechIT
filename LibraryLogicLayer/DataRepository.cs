@@ -5,7 +5,7 @@ namespace LibraryLogicLayer
     public class DataRepository
     {
         public DataContext dataContext;
-        public void initRepository() 
+        public void InitRepository() 
         {
             List<Catalog> catalogList = new List<Catalog>();
             List<State> stateList = new List<State>();

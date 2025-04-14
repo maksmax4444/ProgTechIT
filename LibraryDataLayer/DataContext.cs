@@ -1,19 +1,16 @@
-﻿namespace LibraryDataLayer
-{
-    public class DataContext
-    {
-        public List<Catalog> catalogs;
-        public List<Event> events;
-        public List<Users> users;
-        public List<State> states;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-        public DataContext(List<Catalog> catalogs, List<Event> events, 
-                                List<Users> users, List<State> states)
+namespace LibraryDataLayer
+{
+    public class DataContext : DataContextI
+    {
+        public DataContext(List<Catalog> catalogs, List<Event> events,
+                                List<Users> users, List<State> states): base(catalogs, events, users, states)
         {
-            this.catalogs = catalogs;
-            this.events = events;
-            this.users = users;
-            this.states = states;
         }
     }
 }

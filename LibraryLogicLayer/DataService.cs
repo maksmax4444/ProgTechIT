@@ -2,7 +2,7 @@
 
 namespace LibraryLogicLayer
 {
-    public class DataService
+    public abstract class DataService
     {
         DataRepository dataRepository;
 

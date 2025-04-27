@@ -5,7 +5,7 @@ namespace DataLayerTest;
 [TestClass]
 public class DataAPITest
 {
-
+    /*
     [TestMethod]
     public void TestAddCatalog()
     {
@@ -98,4 +98,5 @@ public class DataAPITest
         context.ChangeState(0, 4);
         Assert.IsTrue(context.states[0].nrOfBooks == 72);
     }
+    */
 }

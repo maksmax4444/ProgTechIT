@@ -9,7 +9,8 @@ namespace LibraryLogicLayer
 {
     public class DataService: DataServiceI
     {
-        DataRepository dataRepository = new DataRepository(new DataContext());
+        static DataContextI data = default(DataContextI);
+        static DataRepository dataRepository = new DataRepository(data);
 
         public override void BorrowCatalog(int StateId, int UserId)
         {

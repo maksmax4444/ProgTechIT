@@ -1,4 +1,6 @@
-﻿namespace LibraryDataLayer
+﻿using LibraryDataLayer;
+
+namespace DataLayerTest
 {
     internal class Event : EventI
     {

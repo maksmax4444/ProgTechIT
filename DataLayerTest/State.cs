@@ -1,6 +1,7 @@
-﻿namespace LibraryDataLayer
+﻿using LibraryDataLayer;
+namespace DataLayerTest
 {
-    internal class State: StateI
+    internal class State : StateI
     {
         public State(int stateId, int nrOfBooks, Catalog catalog)
         {

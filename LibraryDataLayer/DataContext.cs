@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibraryDataLayer
 {
-    public class DataContext : DataContextI
+    internal class DataContext : DataContextI
     {
         internal List<Catalog> catalogs { get; } = new List<Catalog>();
         internal List<Event> events { get; } = new List<Event>();

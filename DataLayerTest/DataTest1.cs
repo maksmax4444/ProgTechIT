@@ -1,6 +1,4 @@
-﻿using LibraryDataLayer;
-
-namespace DataLayerTest
+﻿namespace DataLayerTest
 {
     [TestClass]
     public sealed class DataTest1

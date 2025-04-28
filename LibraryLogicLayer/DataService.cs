@@ -1,13 +1,8 @@
 ﻿using LibraryDataLayer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryLogicLayer
 {
-    public class DataService: DataServiceI
+    internal class DataService: DataServiceI
     {
         static DataContextI data = default(DataContextI);
         static DataRepository dataRepository = new DataRepository(data);

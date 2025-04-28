@@ -2,7 +2,7 @@
 
 namespace LibraryLogicLayer
 {
-    internal class DataRepository
+    internal class DataRepository : DataRepositoryI
     {
         DataContextI dataContext;
 
@@ -11,31 +11,31 @@ namespace LibraryLogicLayer
             dataContext = dataContexI;
         }
 
-        public void BorrowCatalog(int stateId, int userId)
+        public override void BorrowCatalog(int stateId, int userId)
         {
             dataContext.ChangeState(stateId, -1);
             dataContext.AddUserEvent(stateId, userId);
         }
 
-         public void ReturnCatalog(int stateId, int userId)
+         public override void ReturnCatalog(int stateId, int userId)
         {
             dataContext.ChangeState(stateId, 1);
             dataContext.AddUserEvent(stateId, userId);
         }
 
-        public void DestroyCatalog(int stateId)
+        public override void DestroyCatalog(int stateId)
         {
             dataContext.ChangeState(stateId, -1);
             dataContext.AddDatabaseEvent(stateId);
         }
 
-        public void AddCatalog(int stateId)
+        public override void AddCatalog(int stateId)
         {
             dataContext.ChangeState(stateId, 1);
             dataContext.AddDatabaseEvent(stateId);
         }
 
-        public void AddNewCatalogType(string title, string author, int nrOfPages)
+        public override void AddNewCatalogType(string title, string author, int nrOfPages)
         {
             dataContext.AddCatalog(title, author, nrOfPages);
         }

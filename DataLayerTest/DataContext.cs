@@ -1,4 +1,6 @@
-﻿namespace LibraryDataLayer
+﻿using DataLayerTest;
+
+namespace LibraryDataLayer
 {
     internal class DataContext : DataContextI
     {

@@ -1,6 +1,6 @@
-﻿using DataLayerTest;
+﻿using LibraryDataLayer;
 
-namespace LibraryDataLayer
+namespace DataLayerTest
 {
     internal class DataContext : DataContextI
     {

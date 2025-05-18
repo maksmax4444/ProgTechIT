@@ -1,77 +1,219 @@
-﻿namespace LibraryDataLayer
-{
-    internal class DataContext : DataContextI
-    {
-        internal List<Catalog> catalogs { get; } = new List<Catalog>();
-        internal List<Event> events { get; } = new List<Event>();
-        internal List<Users> users { get; } = new List<Users>();
-        internal List<State> states { get; } = new List<State>();
+﻿using Microsoft.EntityFrameworkCore;
 
-        public override void AddCatalog(string title, string author, int nrOfPages)
+namespace LibraryDataLayer
+{
+    internal class DataContext : DbContext, IDataContext
+    {
+        private LibraryDataLinqClassesDataContext _context;
+            
+        public DataContext(string? customConnectionString = null)
         {
-            Catalog c = new Catalog(catalogs.Count, title, author, nrOfPages);
+            if (customConnectionString != null)
+            {
+                _context = new LibraryDataLinqClassesDataContext(customConnectionString);
+            }
+            else
+            {
+                _context = new LibraryDataLinqClassesDataContext();
+            }
+        }
+
+        //database sets
+        public DbSet<Catalog> _catalogDBSet { get; set; }
+        public DbSet<User> _userDBSet { get; set; }
+        public DbSet<Event> _eventDBSet { get; set; }
+        public DbSet<State> _stateDBSet { get; set; }
+        //lists
+        internal List<LibraryCatalog> catalogs { get; } = new List<LibraryCatalog>();
+        internal List<LibraryEvent> events { get; } = new List<LibraryEvent>();
+        internal List<LibraryUser> users { get; } = new List<LibraryUser>();
+        internal List<LibraryState> states { get; } = new List<LibraryState>();
+
+        //add methods
+        public async Task AddCatalog(string title, string author, int nrOfPages)
+        {
+            LibraryCatalog c = new LibraryCatalog(catalogs.Count, title, author, nrOfPages);
             catalogs.Add(c);
+            Catalog dbEntry = new() { catalogId = c.catalogId, title = c.title, author = c.author, nrOfPages = c.nrOfPages };
+            await _catalogDBSet.AddAsync(dbEntry);
+            await SaveChangesAsync();
         }
-        public override void AddUser(string firstName, string lastName)
+        public async Task AddUser(string firstName, string lastName)
         {
-            Users u = new Users(users.Count, firstName, lastName);
+            LibraryUser u = new LibraryUser(users.Count, firstName, lastName);
             users.Add(u);
+            User dbEntry = new() { userId = u.userId, firstName = u.firstName, lastName = u.lastName };
+            await _userDBSet.AddAsync(dbEntry);
+            await SaveChangesAsync();
         }
-        public override void AddUserEvent(int stateId, int userId)
+        public async Task AddUserEvent(int stateId, int userId)
         {
             UserEvent e = new UserEvent(events.Count, GetStateFromId(stateId), GetUsersFromId(userId));
             events.Add(e);
+            Event dbEntry = new() { eventId = e.eventId, StateId = e.state.stateId , userId = e.user.userId };
+            await _eventDBSet.AddAsync(dbEntry);
+            await SaveChangesAsync();
         }
-        public override void AddDatabaseEvent(int stateId)
+        public async Task AddDatabaseEvent(int stateId)
         {
             DatabaseEvent e = new DatabaseEvent(events.Count, GetStateFromId(stateId));
             events.Add(e);
+            Event dbEntry = new() { eventId = e.eventId, StateId = e.state.stateId };
+            await _eventDBSet.AddAsync(dbEntry);
+            await SaveChangesAsync();
         }
-        public override void AddState(int nrOfBooks, int catalogId)
+        public async Task AddState(int nrOfBooks, int catalogId)
         {
-            State s = new State(states.Count, nrOfBooks, GetCatalogFromId(catalogId));
+            LibraryState s = new LibraryState(states.Count, nrOfBooks, GetCatalogFromId(catalogId));
             states.Add(s);
+            State dbEntry = new() { StateId = s.stateId, NrOfBooks = s.nrOfBooks, catalogId = s.catalog.catalogId };
+            await _stateDBSet.AddAsync(dbEntry);
+            await SaveChangesAsync();
         }
 
-        public override void ChangeState(int stateId, int change)
+        //remove methods
+        public async Task RemoveCatalog(int catalogId)
         {
-            GetStateFromId(stateId).nrOfBooks += change;
+            Catalog? c = await _catalogDBSet.FindAsync(catalogId);
+            if (c != null)
+            {
+                _catalogDBSet.Remove(c);
+                await SaveChangesAsync();
+            }
+            catalogs.RemoveAt(catalogId);
         }
 
-        Users GetUsersFromId(int id)
+        public async Task RemoveUser(int userId)
         {
-            foreach (Users users in users)
+            User? u = await _userDBSet.FindAsync(userId);
+            if (u != null)
+            {
+                _userDBSet.Remove(u);
+                await SaveChangesAsync();
+            }
+            users.RemoveAt(userId);
+        }
+
+        public async Task RemoveEvent(int eventId)
+        {
+            Event? e = await _eventDBSet.FindAsync(eventId);
+            if (e != null)
+            {
+                _eventDBSet.Remove(e);
+                await SaveChangesAsync();
+            }
+            events.RemoveAt(eventId);
+        }
+
+        public async Task RemoveState(int stateId)
+        {
+            State? s = await _stateDBSet.FindAsync(stateId);
+            if (s != null)
+            {
+                _stateDBSet.Remove(s);
+                await SaveChangesAsync();
+            }
+            states.RemoveAt(stateId);
+        }
+
+        //get methods
+        public ICatalog? GetCatalog(int id)
+        {
+            var entity = (from Catalog
+                       in _context.Catalogs
+                       where Catalog.catalogId == id
+                       select Catalog).FirstOrDefault();
+            if (entity == null)
+            {
+                return null;
+            }
+            else
+            {
+                return new LibraryCatalog(entity.catalogId, entity.title, entity.author, entity.nrOfPages);
+            }
+        }
+        public IUser? GetUser(int id)
+        {
+            var entity = (from User
+                       in _context.Users
+                       where User.userId == id
+                       select User).FirstOrDefault();
+            if (entity == null)
+            {
+                return null;
+            }
+            else
+            {
+                return new LibraryUser(entity.userId, entity.firstName, entity.lastName);
+            }
+        }
+        public IEvent? GetEvent(int id)
+        {
+            var entity = (from Event
+                       in _context.Events
+                          where Event.eventId == id
+                          select Event).FirstOrDefault();
+            if (entity == null)
+            {
+                return null;
+            }
+            else
+            {
+                return new LibraryEvent(entity.eventId, GetStateFromId(entity.StateId));
+            }
+        }
+        public IState? GetState(int id)
+        {
+            var entity = (from State
+                       in _context.States
+                          where State.StateId == id
+                          select State).FirstOrDefault();
+            if (entity == null)
+            {
+                return null;
+            }
+            else
+            {
+                return new LibraryState(entity.StateId, entity.NrOfBooks, GetCatalogFromId((int)entity.catalogId));
+            }
+        }
+
+        //private get from id methods
+        LibraryUser GetUsersFromId(int id)
+        {
+            foreach (LibraryUser users in users)
             {
                 if (users.userId == id) return users;
             }
             throw new Exception("No user with that id in database.");
         }
 
-        Event GetEventFromId(int id)
+        LibraryEvent GetEventFromId(int id)
         {
-            foreach (Event e in events)
+            foreach (LibraryEvent e in events)
             {
                 if (e.eventId == id) return e;
             }
             throw new Exception("No event with that id in database.");
         }
 
-        State GetStateFromId(int id)
+        LibraryState GetStateFromId(int id)
         {
-            foreach (State state in states)
+            foreach (LibraryState state in states)
             {
                 if (state.stateId == id) return state;
             }
             throw new Exception("No state with that id in database.");
         }
 
-        Catalog GetCatalogFromId(int id)
+        LibraryCatalog GetCatalogFromId(int id)
         {
-            foreach (Catalog catalog in catalogs)
+            foreach (LibraryCatalog catalog in catalogs)
             {
                 if (catalog.catalogId == id) return catalog;
             }
             throw new Exception("No catalog with that id in database.");
         }
+
     }
 }

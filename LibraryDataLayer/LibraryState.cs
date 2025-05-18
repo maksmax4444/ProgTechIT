@@ -1,8 +1,8 @@
 ﻿namespace LibraryDataLayer
 {
-    internal class State: StateI
+    internal class LibraryState : IState
     {
-        public State(int stateId, int nrOfBooks, Catalog catalog)
+        public LibraryState(int stateId, int nrOfBooks, LibraryCatalog catalog)
         {
             this.stateId = stateId;
             this.nrOfBooks = nrOfBooks;

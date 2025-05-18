@@ -1,8 +1,8 @@
 ﻿namespace LibraryDataLayer
 {
-    public abstract class EventI
+    public abstract class IEvent
     {
         public int eventId { get; set; }
-        public StateI state { get; set; }
+        public IState state { get; set; }
     }
 }

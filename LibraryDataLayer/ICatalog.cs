@@ -1,6 +1,6 @@
 ﻿namespace LibraryDataLayer
 {
-    public abstract class CatalogI
+    public abstract class ICatalog
     {
         public int catalogId { get; set; }
         public string title { get; set; }

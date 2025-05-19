@@ -1,10 +1,10 @@
 ﻿namespace LibraryDataLayer
 {
-    internal class UserEvent: Event
+    internal class UserEvent: LibraryEvent
     {
-        public Users user { get; set; }
+        public LibraryUser user { get; set; }
 
-        public UserEvent(int eventId, State state, Users user) : base(eventId, state)
+        public UserEvent(int eventId, LibraryState state, LibraryUser user) : base(eventId, state)
         {
             this.user = user;
         }

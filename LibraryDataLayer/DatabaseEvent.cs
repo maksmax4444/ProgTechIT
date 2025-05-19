@@ -1,8 +1,8 @@
 ﻿namespace LibraryDataLayer
 {
-    internal class DatabaseEvent: Event
+    internal class DatabaseEvent: LibraryEvent
     {
-        public DatabaseEvent(int eventId, State state): base(eventId, state)
+        public DatabaseEvent(int eventId, LibraryState state): base(eventId, state)
         {
             
         }

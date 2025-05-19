@@ -1,9 +1,9 @@
 ﻿namespace LibraryDataLayer
 {
-    internal class Catalog: CatalogI
+    internal class LibraryCatalog: ICatalog
     {
 
-        public Catalog(int catalogId, string title, string author, int nrOfPages)
+        public LibraryCatalog(int catalogId, string title, string author, int nrOfPages)
         {
             this.catalogId = catalogId;
             this.title = title;

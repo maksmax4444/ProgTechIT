@@ -1,9 +1,10 @@
 ﻿using LibraryDataLayer;
-namespace DataLayerTest
+
+namespace LogicLayerTest
 {
-    internal class Users: UsersI
+    internal class TestLibraryUser : IUser
     {
-        public Users(int userId, string firstName, string lastName)
+        public TestLibraryUser(int userId, string firstName, string lastName)
         {
             this.userId = userId;
             this.firstName = firstName;

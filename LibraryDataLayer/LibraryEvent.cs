@@ -1,8 +1,8 @@
 ﻿namespace LibraryDataLayer
 {
-    internal class Event : EventI
+    internal class LibraryEvent : IEvent
     {
-        public Event(int eventId, State state)
+        public LibraryEvent(int eventId, LibraryState state)
         {
             this.eventId = eventId;
             this.state = state;

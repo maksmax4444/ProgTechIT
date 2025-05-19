@@ -1,8 +1,8 @@
-﻿namespace LibraryDataLayer
+﻿namespace LibraryLogicLayer
 {
-    public abstract class CatalogI
+    public interface ICatalogService
     {
-        public int catalogId { get; set; }
+        public int id { get; set; }
         public string title { get; set; }
         public string author { get; set; }
         public int nrOfPages { get; set; }

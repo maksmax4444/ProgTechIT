@@ -1,57 +1,73 @@
-﻿namespace DataLayerTest
+﻿using LibraryDataLayer;
+
+namespace DataLayerTest
 {
     [TestClass]
     public sealed class DataTest1
     {
-        [TestMethod]
-        public void TestConstructorCatalog()
-        {
-            Catalog c = new Catalog(1, "TestTitle", "TestAuthor", 10);
-            Assert.IsTrue(c.catalogId == 1 && c.title == "TestTitle" && 
-                            c.author == "TestAuthor" && c.nrOfPages == 10);
-        }
+        private const string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Maksym\\Documents\\ProgTechRepo\\ProgTechIT\\LibraryDataLayer\\LibraryDatabase.mdf;Integrated Security = True";
 
         [TestMethod]
-        public void TestConstructorState()
+        public void CatalogTests()
         {
-            Catalog c = new Catalog(1, "TestTitle", "TestAuthor", 10);
-            State s = new State(1, 10, c);
-            Assert.IsTrue(s.stateId == 1 && s.nrOfBooks == 10 && s.catalog == c);
+            IDataContext repo = IDataContext.CreateNewContext(connectionString);
+            repo.CleanData();
+            Assert.IsNull(repo.GetCatalog(1));
+            repo.AddCatalog(1, "TestTitle", "TestAuthor", 66);
+            Assert.IsNotNull(repo.GetCatalog(1));
+            Assert.IsTrue(repo.GetCatalog(1).title == "TestTitle");
+            Assert.IsTrue(repo.GetCatalog(1).author == "TestAuthor");
+            Assert.IsTrue(repo.GetCatalog(1).nrOfPages == 66);
+            repo.RemoveCatalog(1);
+            Assert.IsNull(repo.GetCatalog(1));
+            repo.CleanData();
         }
-
         [TestMethod]
-        public void TestConstructorEvent()
+        public void UserTests()
         {
-            Catalog c = new Catalog(1, "TestTitle", "TestAuthor", 10);
-            State s = new State(1, 10, c);
-            Event e = new Event(1, s);
-            Assert.IsTrue(e.eventId == 1 && e.state == s);
+            IDataContext repo = IDataContext.CreateNewContext(connectionString);
+            repo.CleanData();
+            Assert.IsNull(repo.GetUser(1));
+            repo.AddUser(1, "Skibidi", "Sigma");
+            Assert.IsNotNull(repo.GetUser(1));
+            Assert.IsTrue(repo.GetUser(1).firstName == "Skibidi");
+            Assert.IsTrue(repo.GetUser(1).lastName == "Sigma");
+            repo.RemoveUser(1);
+            Assert.IsNull(repo.GetUser(1));
+            repo.CleanData();
         }
-
         [TestMethod]
-        public void TestConstructorUserEvent()
+        public void EventTests()
         {
-            Catalog c = new Catalog(1, "TestTitle", "TestAuthor", 10);
-            Users u = new Users(1, "Alicja", "Makota");
-            State s = new State(1, 10, c);
-            UserEvent e = new UserEvent(1, s, u);
-            Assert.IsTrue(e.eventId == 1 && e.state == s && e.user == u);
+            IDataContext repo = IDataContext.CreateNewContext(connectionString);
+            repo.CleanData();
+            Assert.IsNull(repo.GetEvent(1));
+            repo.AddCatalog(2, "TestTitle", "TestAuthor", 66);
+            repo.AddState(1, 5, 2);
+            repo.AddDatabaseEvent(1, 1);
+            Assert.IsNotNull(repo.GetEvent(1));
+            Assert.IsTrue(repo.GetEvent(1).state.nrOfBooks == repo.GetState(1).nrOfBooks);
+            repo.RemoveEvent(1);
+            repo.RemoveState(1);
+            repo.RemoveCatalog(2);
+            Assert.IsNull(repo.GetEvent(1));
+            repo.CleanData();
         }
-
         [TestMethod]
-        public void TestConstructorDatabaseEvent()
+        public void StateTests()
         {
-            Catalog c = new Catalog(1, "TestTitle", "TestAuthor", 10);
-            State s = new State(1, 10, c);
-            DatabaseEvent e = new DatabaseEvent(1, s);
-            Assert.IsTrue(e.eventId == 1 && e.state == s);
-        }
-
-        [TestMethod]
-        public void TestConstructorUsers()
-        {
-            Users u = new Users(1, "Jan", "Kowalski");
-            Assert.IsTrue(u.userId == 1 && u.firstName == "Jan" && u.lastName == "Kowalski");
+            IDataContext repo = IDataContext.CreateNewContext(connectionString);
+            repo.CleanData();
+            Assert.IsNull(repo.GetState(2));
+            repo.AddCatalog(3, "TestTitle", "TestAuthor", 66);
+            repo.AddState(2, 5, 3);
+            Assert.IsNotNull(repo.GetState(2));
+            Assert.IsTrue(repo.GetState(2).nrOfBooks == 5);
+            Assert.IsTrue(repo.GetState(2).catalog.title == repo.GetCatalog(3).title);
+            repo.RemoveState(2);
+            repo.RemoveCatalog(3);
+            Assert.IsNull(repo.GetState(2));
+            repo.CleanData();
         }
     }
 }

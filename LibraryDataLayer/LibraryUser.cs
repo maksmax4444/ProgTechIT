@@ -1,8 +1,8 @@
 ﻿namespace LibraryDataLayer
 {
-    internal class Users: UsersI
+    internal class LibraryUser : IUser
     {
-        public Users(int userId, string firstName, string lastName)
+        public LibraryUser(int userId, string firstName, string lastName)
         {
             this.userId = userId;
             this.firstName = firstName;

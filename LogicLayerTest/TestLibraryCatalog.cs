@@ -1,10 +1,10 @@
 ﻿using LibraryDataLayer;
 
-namespace DataLayerTest
+namespace LogicLayerTest
 {
-    internal class Catalog: CatalogI
+    internal class TestLibraryCatalog : ICatalog
     {
-        public Catalog(int catalogId, string title, string author, int nrOfPages)
+        public TestLibraryCatalog(int catalogId, string title, string author, int nrOfPages)
         {
             this.catalogId = catalogId;
             this.title = title;

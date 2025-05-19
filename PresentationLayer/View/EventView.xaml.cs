@@ -17,7 +17,7 @@ namespace PresentationLayer.View
     /// <summary>
     /// Logika interakcji dla klasy EventView.xaml
     /// </summary>
-    public partial class EventView : Window
+    public partial class EventView : UserControl
     {
         public EventView()
         {

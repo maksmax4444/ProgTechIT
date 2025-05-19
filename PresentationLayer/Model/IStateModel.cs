@@ -4,6 +4,6 @@
     {
         public int stateId { get; set; }
         public int nrOfBooks { get; set; }
-        public ICatalogModel catalog { get; set; }
+        public int catalog { get; set; }
     }
 }

@@ -3,6 +3,6 @@
     internal class IEventModel
     {
         public int eventId { get; set; }
-        public IStateModel state { get; set; }
+        public int state { get; set; }
     }
 }

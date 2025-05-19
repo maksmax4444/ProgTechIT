@@ -17,7 +17,7 @@ namespace PresentationLayer.View
     /// <summary>
     /// Logika interakcji dla klasy StateView.xaml
     /// </summary>
-    public partial class StateView : Window
+    public partial class StateView : UserControl
     {
         public StateView()
         {

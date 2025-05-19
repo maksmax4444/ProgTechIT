@@ -4,39 +4,51 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PresentationLayer"
+        xmlns:localview="clr-namespace:PresentationLayer.View"
         xmlns:vmodel="clr-namespace:PresentationLayer.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="650" Width="800">
     <Window.DataContext>
         <vmodel:MainViewModel/>
     </Window.DataContext>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vmodel:CatalogViewModelCollection}">
+            <localview:CatalogView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vmodel:EventViewModelCollection}">
+            <localview:EventView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vmodel:StateViewModelCollection}">
+            <localview:StateView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vmodel:UsersViewModelCollection}">
+            <localview:UsersView />
+        </DataTemplate>
 
+        <DataTemplate DataType="{x:Type vmodel:CatalogViewModel}">
+            <localview:CatalogViewDetail />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vmodel:EventViewModel}">
+            <localview:EventViewDetail />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vmodel:StateViewModel}">
+            <localview:StateViewDetail />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vmodel:UsersViewModel}">
+            <localview:UsersViewDetail />
+        </DataTemplate>
+    </Window.Resources>
+    <DockPanel>
         <!--Command="{Binding commandAdd}"-->
-        <Button x:Name="add" Content="Press to Add" Grid.Column="0" Grid.Row="3" ClickMode="Press" Margin="10,10,10,10" Height="50"/>
-        <Button x:Name="edit" Content="Press to Edit" Grid.Column="1" Grid.Row="3" ClickMode="Press" Margin="10,10,10,10" Height="50"/>
-        <Button x:Name="display" Content="Press to Display" Grid.Column="2" Grid.Row="3" ClickMode="Press" Margin="10,10,10,10" Height="50"/>
-        <Button x:Name="read" Content="Press to Read" Grid.Column="3" Grid.Row="3" ClickMode="Press" Margin="10,10,10,10" Height="50"/>
+        <Button x:Name="catalog" Content="Catalogs" Command="{Binding showCatalogs}" ClickMode="Press" Height="50"/>
+        <Button x:Name="event" Content="Events" Command="{Binding showEvents}" ClickMode="Press" Height="50"/>
+        <Button x:Name="state" Content="States" Command="{Binding showStates}" ClickMode="Press" Height="50"/>
+        <Button x:Name="user" Content="Users" Command="{Binding showUsers}" ClickMode="Press" Height="50"/>
 
-        <Button x:Name="previous" Content="Press to Browse Previous Class" Command="{Binding Previous}" Grid.Column="0" Grid.Row="0" ClickMode="Press" Margin="10,10,10,10" Height="50"/>
-        <Button x:Name="next" Content="Press to Browse Next Class" Grid.Column="1" Command="{Binding Next}" Grid.Row="0" ClickMode="Press" Margin="10,10,10,10" Height="50"/>
-        <Button x:Name="left" Content="Press to Browse Previous Element" Grid.Column="2" Command="{Binding Left}" Grid.Row="0" ClickMode="Press" Margin="10,10,10,10" Height="50"/>
-        <Button x:Name="right" Content="Press to Browse Next Element" Grid.Column="3" Command="{Binding Right}" Grid.Row="0" ClickMode="Press" Margin="10,10,10,10" Height="50"/>
+        <Button x:Name="Detail" Content="Detail" Command="{Binding Detail}" ClickMode="Press" Height="50"/>
 
-        <Label Content="Current Class:" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="16" Grid.Column="0" Grid.Row="1"/>
-        <Label Content="Test1" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Grid.Column="1" Grid.Row="1"/>
-        <Label Content="Current Element ID:" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="16" Grid.Column="2" Grid.Row="1"/>
-        <Label Content="Test2" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Grid.Column="3" Grid.Row="1"/>
-    </Grid>
+        <Border Background="White" CornerRadius="8" Padding="10" BorderBrush="#DDD" BorderThickness="1">
+        <ContentControl Content="{Binding CurrentView}" />
+        </Border>
+    </DockPanel>
 </Window>

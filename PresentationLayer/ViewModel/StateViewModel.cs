@@ -1,16 +1,41 @@
-﻿namespace PresentationLayer.ViewModel
+﻿using System.Windows.Input;
+using LibraryLogicLayer;
+
+namespace PresentationLayer.ViewModel
 {
     internal class StateViewModel : PropertyChange
     {
         private int stateId;
         private int nrOfBooks;
-        private CatalogViewModel catalog;
+        private int catalog;
+        private IDataService ids = IDataService.CreateNewDataService();
+        private StateViewModel s; public ICommand AddSmth { get; }
+        public ICommand DeleteSmth { get; }
+        public ICommand UpdateSmth { get; }
+        public ICommand DisplaySmth { get; }
 
-        public StateViewModel(int stateId, int nrOfBooks, CatalogViewModel catalog)
+        public StateViewModel(int stateId, int nrOfBooks, int catalog)
         {
             this.stateId = stateId;
             this.nrOfBooks = nrOfBooks;
             this.catalog = catalog;
+
+            AddSmth = new RelayCommand(_ => add());
+            DeleteSmth = new RelayCommand(_ => delete());
+            UpdateSmth = new RelayCommand(_ => update());
+            DisplaySmth = new RelayCommand(_ => display());
+        }
+
+        public StateViewModel()
+        {
+            StateId = 0;
+            NrOfBooks = 0;
+            Catalog = 0;
+
+            AddSmth = new RelayCommand(_ => add());
+            DeleteSmth = new RelayCommand(_ => delete());
+            UpdateSmth = new RelayCommand(_ => update());
+            DisplaySmth = new RelayCommand(_ => display());
         }
 
         public int StateId
@@ -41,7 +66,7 @@
             }
         }
 
-        public CatalogViewModel Catalog
+        public int Catalog
         {
             get
             {
@@ -53,6 +78,25 @@
                 this.catalog = value;
                 OnPropertyChanged(nameof(Catalog));
             }
+        }
+        public void add()
+        {
+            ids.AddState(stateId, nrOfBooks, catalog);
+        }
+
+        public void delete()
+        {
+            ids.RemoveState(stateId);
+        }
+
+        public void update()
+        {
+            ids.UpdateState(stateId, nrOfBooks, catalog);
+        }
+
+        public void display()
+        {
+
         }
     }
 }

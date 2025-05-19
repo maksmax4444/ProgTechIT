@@ -1,24 +1,25 @@
 ﻿using System.Windows.Input;
 using LibraryLogicLayer;
-using PresentationLayer.Model;
 
 namespace PresentationLayer.ViewModel
 {
-    internal class EventViewModel : PropertyChange
+    internal class UsersViewModel : PropertyChange
     {
-        private int eventId;
-        private int states;
+        int userId;
+        string firstName;
+        string lastName;
         private IDataService ids = IDataService.CreateNewDataService();
-        private IEventModel icm;
+        private UsersViewModel u;
         public ICommand AddSmth { get; }
         public ICommand DeleteSmth { get; }
         public ICommand UpdateSmth { get; }
         public ICommand DisplaySmth { get; }
 
-        public EventViewModel()
+        public UsersViewModel(int userId, string firstName, string lastName)
         {
-            EventId = 0;
-            States = 0;
+            this.userId = userId;
+            this.firstName = firstName;
+            this.lastName = lastName;
 
             AddSmth = new RelayCommand(_ => add());
             DeleteSmth = new RelayCommand(_ => delete());
@@ -26,10 +27,11 @@ namespace PresentationLayer.ViewModel
             DisplaySmth = new RelayCommand(_ => display());
         }
 
-        public EventViewModel(int e, int s)
+        public UsersViewModel()
         {
-            EventId = e;
-            States = s;
+            UserId = 0;
+            FirstName = "";
+            LastName = "";
 
             AddSmth = new RelayCommand(_ => add());
             DeleteSmth = new RelayCommand(_ => delete());
@@ -37,46 +39,60 @@ namespace PresentationLayer.ViewModel
             DisplaySmth = new RelayCommand(_ => display());
         }
 
-        public int EventId
+        public int UserId
         {
             get
             {
-                return this.eventId;
+                return this.userId;
             }
 
             set
             {
-                this.eventId = value;
-                OnPropertyChanged(nameof(EventId));
+                this.userId = value;
+                OnPropertyChanged(nameof(UserId));
             }
         }
 
-        public int States
+        public String FirstName
         {
             get
             {
-                return this.states;
+                return this.firstName;
             }
 
             set
             {
-                this.states = value;
-                OnPropertyChanged(nameof(States));
+                this.firstName = value;
+                OnPropertyChanged(nameof(FirstName));
+            }
+        }
+
+        public String LastName
+        {
+            get
+            {
+                return this.lastName;
+            }
+
+            set
+            {
+                this.lastName = value;
+                OnPropertyChanged(nameof(LastName));
             }
         }
         public void add()
         {
-            ids.AddDatabaseEvent(eventId, states);
+            ids.AddUser(userId, firstName, lastName);
         }
 
         public void delete()
         {
-            ids.RemoveEvent(eventId);
+            ids.RemoveUser(userId);
         }
 
         public void update()
         {
-            ids.UpdateEvent(EventId, States);
+            ids.UpdateUser(UserId, firstName, lastName);
         }
 
         public void display()

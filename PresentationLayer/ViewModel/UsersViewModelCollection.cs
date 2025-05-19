@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace PresentationLayer.ViewModel
 {
@@ -9,8 +10,7 @@ namespace PresentationLayer.ViewModel
         private string lastName;
         public ICommand commandAdd { get; }
         public ICommand commandDelete { get; }
-        private List<UsersViewModel> users;
-
+        public ObservableCollection<UsersViewModel> Users { get; set; }
         public int UserId
         {
             get
@@ -24,7 +24,6 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged(nameof(UserId));
             }
         }
-
         public String FirstName
         {
             get
@@ -38,7 +37,6 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged(nameof(FirstName));
             }
         }
-
         public String LastName
         {
             get
@@ -52,33 +50,10 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged(nameof(LastName));
             }
         }
-
-        public List<UsersViewModel> Users
-        {
-            get
-            {
-                return this.users;
-            }
-
-            set
-            {
-                this.users = value;
-                OnPropertyChanged(nameof(Users));
-            }
-        }
-
         public UsersViewModelCollection()
         {
-            users = new List<UsersViewModel>();
+            Users = new ObservableCollection<UsersViewModel> { };
             //Place for commands
-        }
-        private async Task Add()
-        {
-            //Placeholder for commandAdd
-        }
-        private async Task Delete()
-        {
-            //Placeholder for commandDelete
         }
     }
 }

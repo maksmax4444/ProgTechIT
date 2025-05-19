@@ -1,4 +1,7 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using LibraryLogicLayer;
+using System.Windows.Input;
+using PresentationLayer.Model;
 
 namespace PresentationLayer.ViewModel
 {
@@ -8,10 +11,10 @@ namespace PresentationLayer.ViewModel
         private string title;
         private string author;
         private int nrOfPages;
+ 
         public ICommand commandAdd { get; }
         public ICommand commandDelete { get; }
-        private List<CatalogViewModel> catalogs;
-
+        public ObservableCollection<CatalogViewModel> Catalogs { get; set; }
         public int CatalogId
         {
             get
@@ -25,7 +28,6 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged(nameof(CatalogId));
             }
         }
-
         public string Title
         {
             get
@@ -39,7 +41,6 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged(nameof(Title));
             }
         }
-
         public string Author
         {
             get
@@ -53,7 +54,6 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged(nameof(Author));
             }
         }
-
         public int NrOfPages
         {
             get
@@ -69,16 +69,8 @@ namespace PresentationLayer.ViewModel
         }
         public CatalogViewModelCollection()
         {
-            catalogs = new List<CatalogViewModel>();
+            Catalogs = new ObservableCollection<CatalogViewModel> { };
             //Place for commands
-        }
-        private async Task Add()
-        {
-            //Placeholder for commandAdd
-        }
-        private async Task Delete()
-        {
-            //Placeholder for commandDelete
         }
     }
 }

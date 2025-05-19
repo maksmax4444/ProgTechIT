@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace PresentationLayer.ViewModel
 {
@@ -6,7 +7,7 @@ namespace PresentationLayer.ViewModel
     {
         private int eventId;
         private StateViewModel states;
-        private List<EventViewModel> events;
+        public ObservableCollection<EventViewModel> Events { get; set; }
         public ICommand commandAdd { get; }
         public ICommand commandDelete { get; }
 
@@ -23,7 +24,6 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged(nameof(EventId));
             }
         }
-
         public StateViewModel NrOfBooks
         {
             get
@@ -39,16 +39,8 @@ namespace PresentationLayer.ViewModel
         }
         public EventViewModelCollection()
         {
-            events = new List<EventViewModel>();
+            Events = new ObservableCollection<EventViewModel> { };
             //Place for commands
-        }
-        private async Task Add()
-        {
-            //Placeholder for commandAdd
-        }
-        private async Task Delete()
-        {
-            //Placeholder for commandDelete
         }
     }
 }

@@ -1,4 +1,8 @@
-﻿namespace PresentationLayer.ViewModel
+﻿using System.Windows.Input;
+using LibraryLogicLayer;
+using PresentationLayer.Model;
+
+namespace PresentationLayer.ViewModel
 {
     internal class CatalogViewModel : PropertyChange
     {
@@ -6,6 +10,12 @@
         private string title;
         private string author;
         private int nrOfPages;
+        private IDataService ids = IDataService.CreateNewDataService();
+        private ICatalogModel icm;
+        public ICommand AddSmth { get; }
+        public ICommand DeleteSmth { get; }
+        public ICommand UpdateSmth { get; }
+        public ICommand DisplaySmth { get; }
 
         public CatalogViewModel(int catalogId, string title, string author, int nrOfPages)
         {
@@ -13,8 +23,25 @@
             this.title = title;
             this.author = author;
             this.nrOfPages = nrOfPages;
+
+            AddSmth = new RelayCommand(_ => add());
+            DeleteSmth = new RelayCommand(_ => delete());
+            UpdateSmth = new RelayCommand(_ => update());
+            DisplaySmth = new RelayCommand(_ => display());
         }
 
+        public CatalogViewModel()
+        {
+            CatalogId = 0;
+            Title = "";
+            Author = "";
+            NrOfPages = 0;
+
+            AddSmth = new RelayCommand(_ => add());
+            DeleteSmth = new RelayCommand(_ => delete());
+            UpdateSmth = new RelayCommand(_ => update());
+            DisplaySmth = new RelayCommand(_ => display());
+        }
         public int CatalogId
         {
             get
@@ -69,6 +96,26 @@
                 this.nrOfPages = value;
                 OnPropertyChanged(nameof(NrOfPages));
             }
+        }
+
+        public void add()
+        {
+            ids.AddCatalog(catalogId, title, author, nrOfPages);
+        }
+
+        public void delete()
+        {
+            ids.RemoveCatalog(catalogId);
+        }
+
+        public void update()
+        {
+            ids.UpdateCatalog(catalogId, title, author, nrOfPages);
+        }
+
+        public void display()
+        {
+
         }
     }
 }

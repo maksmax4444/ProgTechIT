@@ -17,7 +17,7 @@ namespace PresentationLayer.View
     /// <summary>
     /// Logika interakcji dla klasy Catalog.xaml
     /// </summary>
-    public partial class CatalogView : Window
+    public partial class CatalogView : UserControl
     {
         public CatalogView()
         {

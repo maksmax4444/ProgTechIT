@@ -2,7 +2,7 @@
 {
     internal class StateModel : IStateModel
     {
-        public StateModel(int stateId, int nrOfBooks, CatalogModel catalog)
+        public StateModel(int stateId, int nrOfBooks, int catalog)
         {
             this.stateId = stateId;
             this.nrOfBooks = nrOfBooks;

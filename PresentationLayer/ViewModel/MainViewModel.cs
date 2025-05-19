@@ -4,99 +4,79 @@ namespace PresentationLayer.ViewModel
 {
     internal class MainViewModel : PropertyChange
     {
-        private int whatClass = 0;
-        private int whatElement = 0;
-        private PropertyChange currentView;
-        public ICommand newView { get; }
-        public ICommand previous { get; }
-        public ICommand next { get; }
-        public ICommand left { get; }
-        public ICommand right { get; }
+        private int v;
+        private PropertyChange _currentView;
+        public ICommand showCatalogs { get; }
+        public ICommand showEvents { get; }
+        public ICommand showStates { get; }
+        public ICommand showUsers { get; }
+        public ICommand Detail { get; }
 
         public PropertyChange CurrentView
         {
             get
             {
-                return this.currentView;
+                return _currentView;
             }
 
             set
             {
-                this.currentView = value;
+                _currentView = value;
                 OnPropertyChanged(nameof(CurrentView));
             }
         }
 
         public MainViewModel()
         {
-            newView = new RelayCommand(NextView);
-            previous = new RelayCommand(Previous);
-            next = new RelayCommand(Next);
-            left = new RelayCommand(Left);
-            right = new RelayCommand(Right);
-            CurrentView = new UsersViewModelCollection();
+            showCatalogs = new RelayCommand(_ => showC());
+            showEvents = new RelayCommand(_ => showE());
+            showStates = new RelayCommand(_ => showS());
+            showUsers = new RelayCommand(_ => showU());
+            Detail = new RelayCommand(_ => detail());
+            CurrentView = new CatalogViewModelCollection();
         }
 
-        public int getElement()
-        { 
-            return whatElement; 
-        }
-
-        private void NextView(object parameter) 
+        public void detail() 
         {
-            switch (whatClass)
+            switch (v)
             {
-                case 0:
-                    //Users
-                    currentView = new UsersViewModelCollection();
-                    break;
                 case 1:
-                    //Catalogs
-                    currentView = new CatalogViewModelCollection();
+                    CurrentView = new CatalogViewModel();
                     break;
                 case 2:
-                    //States
-                    currentView = new StateViewModelCollection();
+                    CurrentView = new EventViewModel();
                     break;
                 case 3:
-                    //Events
-                    currentView = new EventViewModelCollection();
+                    CurrentView = new StateViewModel();
+                    break;
+                case 4:
+                    CurrentView = new UsersViewModel();
                     break;
             }
         }
 
-        private void Previous(object parameter)
+        public void showC()
         {
-            if (whatElement == 0)
-            {
-                whatElement = 3;
-            }
-            else
-            {
-                whatElement--;
-            }
+            v = 1;
+            CurrentView = new CatalogViewModelCollection();
         }
 
-        private void Next(object parameter)
+        public void showE()
         {
-            if (whatElement == 3)
-            {
-                whatElement = 0;
-            }
-            else
-            {
-                whatElement++;
-            }
+            v = 2;
+            CurrentView = new EventViewModelCollection();
         }
 
-        private void Left(object parameter)
+        public void showS()
         {
-            whatElement--;
+            v = 3;
+            CurrentView = new StateViewModelCollection();
         }
 
-        private void Right(object parameter)
+        public void showU()
         {
-            whatElement++;
+            v = 4;
+            CurrentView = new UsersViewModelCollection();
         }
     }
 }

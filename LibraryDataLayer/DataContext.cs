@@ -18,11 +18,6 @@ namespace LibraryDataLayer
             }
         }
 
-        //database sets
-        public DbSet<Catalog> _catalogDBSet { get; set; }
-        public DbSet<User> _userDBSet { get; set; }
-        public DbSet<Event> _eventDBSet { get; set; }
-        public DbSet<State> _stateDBSet { get; set; }
         //lists
         internal List<LibraryCatalog> catalogs { get; } = new List<LibraryCatalog>();
         internal List<LibraryEvent> events { get; } = new List<LibraryEvent>();
@@ -30,90 +25,75 @@ namespace LibraryDataLayer
         internal List<LibraryState> states { get; } = new List<LibraryState>();
 
         //add methods
-        public async Task AddCatalog(string title, string author, int nrOfPages)
+        public void AddCatalog(int id, string title, string author, int nrOfPages)
         {
-            LibraryCatalog c = new LibraryCatalog(catalogs.Count, title, author, nrOfPages);
+            LibraryCatalog c = new LibraryCatalog(id, title, author, nrOfPages);
             catalogs.Add(c);
-            Catalog dbEntry = new() { catalogId = c.catalogId, title = c.title, author = c.author, nrOfPages = c.nrOfPages };
-            await _catalogDBSet.AddAsync(dbEntry);
-            await SaveChangesAsync();
+            Catalog dbEntry = new() { catalogId = id, title = c.title, author = c.author, nrOfPages = c.nrOfPages };
+            _context.Catalogs.InsertOnSubmit(dbEntry);
+            _context.SubmitChanges();
         }
-        public async Task AddUser(string firstName, string lastName)
+
+        public void AddUser(int id, string firstName, string lastName)
         {
-            LibraryUser u = new LibraryUser(users.Count, firstName, lastName);
+            LibraryUser u = new LibraryUser(id, firstName, lastName);
             users.Add(u);
-            User dbEntry = new() { userId = u.userId, firstName = u.firstName, lastName = u.lastName };
-            await _userDBSet.AddAsync(dbEntry);
-            await SaveChangesAsync();
+            User dbEntry = new() { userId = id, firstName = u.firstName, lastName = u.lastName };
+            _context.Users.InsertOnSubmit(dbEntry);
+            _context.SubmitChanges();
         }
-        public async Task AddUserEvent(int stateId, int userId)
+        public void AddUserEvent(int id, int stateId, int userId)
         {
-            UserEvent e = new UserEvent(events.Count, GetStateFromId(stateId), GetUsersFromId(userId));
+            UserEvent e = new UserEvent(id, GetStateFromId(stateId), GetUsersFromId(userId));
             events.Add(e);
-            Event dbEntry = new() { eventId = e.eventId, StateId = e.state.stateId , userId = e.user.userId };
-            await _eventDBSet.AddAsync(dbEntry);
-            await SaveChangesAsync();
+            Event dbEntry = new() { eventId = id, StateId = e.state.stateId , userId = e.user.userId };
+            _context.Events.InsertOnSubmit(dbEntry);
+            _context.SubmitChanges();
         }
-        public async Task AddDatabaseEvent(int stateId)
+        public void AddDatabaseEvent(int id, int stateId)
         {
-            DatabaseEvent e = new DatabaseEvent(events.Count, GetStateFromId(stateId));
+            DatabaseEvent e = new DatabaseEvent(id, GetStateFromId(stateId));
             events.Add(e);
-            Event dbEntry = new() { eventId = e.eventId, StateId = e.state.stateId };
-            await _eventDBSet.AddAsync(dbEntry);
-            await SaveChangesAsync();
+            Event dbEntry = new() { eventId = id, StateId = e.state.stateId };
+            _context.Events.InsertOnSubmit(dbEntry);
+            _context.SubmitChanges();
         }
-        public async Task AddState(int nrOfBooks, int catalogId)
+        public void AddState(int id, int nrOfBooks, int catalogId)
         {
-            LibraryState s = new LibraryState(states.Count, nrOfBooks, GetCatalogFromId(catalogId));
+            LibraryState s = new LibraryState(id, nrOfBooks, GetCatalogFromId(catalogId));
             states.Add(s);
-            State dbEntry = new() { StateId = s.stateId, NrOfBooks = s.nrOfBooks, catalogId = s.catalog.catalogId };
-            await _stateDBSet.AddAsync(dbEntry);
-            await SaveChangesAsync();
+            State dbEntry = new() { StateId = id, NrOfBooks = s.nrOfBooks, catalogId = s.catalog.catalogId };
+            _context.States.InsertOnSubmit(dbEntry);
+            _context.SubmitChanges();
         }
 
         //remove methods
-        public async Task RemoveCatalog(int catalogId)
+        public void RemoveCatalog(int id)
         {
-            Catalog? c = await _catalogDBSet.FindAsync(catalogId);
-            if (c != null)
-            {
-                _catalogDBSet.Remove(c);
-                await SaveChangesAsync();
-            }
-            catalogs.RemoveAt(catalogId);
+            Catalog dbEntry = _context.Catalogs.Single(entry => entry.catalogId == id);
+            _context.Catalogs.DeleteOnSubmit(dbEntry);
+            _context.SubmitChanges();
         }
 
-        public async Task RemoveUser(int userId)
+        public void RemoveUser(int id)
         {
-            User? u = await _userDBSet.FindAsync(userId);
-            if (u != null)
-            {
-                _userDBSet.Remove(u);
-                await SaveChangesAsync();
-            }
-            users.RemoveAt(userId);
+            User dbEntry = _context.Users.Single(entry => entry.userId == id);
+            _context.Users.DeleteOnSubmit(dbEntry);
+            _context.SubmitChanges();
         }
 
-        public async Task RemoveEvent(int eventId)
+        public void RemoveEvent(int id)
         {
-            Event? e = await _eventDBSet.FindAsync(eventId);
-            if (e != null)
-            {
-                _eventDBSet.Remove(e);
-                await SaveChangesAsync();
-            }
-            events.RemoveAt(eventId);
+            Event dbEntry = _context.Events.Single(entry => entry.eventId == id);
+            _context.Events.DeleteOnSubmit(dbEntry);
+            _context.SubmitChanges();
         }
 
-        public async Task RemoveState(int stateId)
+        public void RemoveState(int id)
         {
-            State? s = await _stateDBSet.FindAsync(stateId);
-            if (s != null)
-            {
-                _stateDBSet.Remove(s);
-                await SaveChangesAsync();
-            }
-            states.RemoveAt(stateId);
+            State dbEntry = _context.States.Single(entry => entry.StateId == id);
+            _context.States.DeleteOnSubmit(dbEntry);
+            _context.SubmitChanges();
         }
 
         //get methods
@@ -214,6 +194,12 @@ namespace LibraryDataLayer
             }
             throw new Exception("No catalog with that id in database.");
         }
-
+        public void CleanData()
+        {
+            _context.ExecuteCommand("DELETE FROM Events");
+            _context.ExecuteCommand("DELETE FROM States");
+            _context.ExecuteCommand("DELETE FROM Users");
+            _context.ExecuteCommand("DELETE FROM Catalogs");
+        }
     }
 }

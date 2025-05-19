@@ -1,9 +1,10 @@
 ﻿using LibraryDataLayer;
-namespace DataLayerTest
+
+namespace LogicLayerTest
 {
-    internal class State : StateI
+    internal class TestLibraryState : IState
     {
-        public State(int stateId, int nrOfBooks, Catalog catalog)
+        public TestLibraryState(int stateId, int nrOfBooks, TestLibraryCatalog catalog)
         {
             this.stateId = stateId;
             this.nrOfBooks = nrOfBooks;

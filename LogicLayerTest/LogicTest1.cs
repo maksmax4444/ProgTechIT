@@ -5,61 +5,45 @@ namespace LogicLayerTest
     [TestClass]
     public sealed class LogicTest1
     {
-
+        
         [TestMethod]
-        public void TestBorrowCatalog()
+        public void CatalogTests()
         {
-            DataService ds = new DataService();
-            try
-            {
-                ds.BorrowCatalog(1,1);
-            }
-            catch (Exception ex)
-            {
-                Assert.IsTrue(ex is NullReferenceException);
-            }
+            TestDataContext context = new TestDataContext();
+            IDataService service = IDataService.CreateNewDataService(context);
+            service.AddCatalog(0, "TestTitle", "TestAuthor", 66);
+            Assert.IsTrue(service.GetCatalog(0).title == "TestTitle");
+            Assert.IsTrue(service.GetCatalog(0).author == "TestAuthor");
+            Assert.IsTrue(service.GetCatalog(0).nrOfPages == 66);
         }
-
         [TestMethod]
-        public void TestReturnCatalog()
+        public void UserTests()
         {
-            DataService ds = new DataService();
-            try
-            {
-                ds.ReturnCatalog(1, 1);
-            }
-            catch (Exception ex)
-            {
-                Assert.IsTrue(ex is NullReferenceException);
-            }
+            TestDataContext context = new TestDataContext();
+            IDataService service = IDataService.CreateNewDataService(context);
+            service.AddUser(0, "TestFirstName", "TestLastName");
+            Assert.IsTrue(service.GetUser(0).fName == "TestFirstName");
+            Assert.IsTrue(service.GetUser(0).lName == "TestLastName");
         }
-
         [TestMethod]
-        public void TestDestroyCatalog()
+        public void EventTests()
         {
-            DataService ds = new DataService();
-            try
-            {
-                ds.DestoryCatalog(1);
-            }
-            catch (Exception ex)
-            {
-                Assert.IsTrue(ex is NullReferenceException);
-            }
+            TestDataContext context = new TestDataContext();
+            IDataService service = IDataService.CreateNewDataService(context);
+            service.AddCatalog(0, "TestTitle", "TestAuthor", 66);
+            service.AddState(0, 5, 0);
+            service.AddDatabaseEvent(0, 0);
+            Assert.IsTrue(service.GetEvent(0).stateId == service.GetState(0).id);
         }
-
         [TestMethod]
-        public void TestAddCatalog()
+        public void StateTests()
         {
-            DataService ds = new DataService();
-            try
-            {
-                ds.AddCatalog(1);
-            }
-            catch (Exception ex)
-            {
-                Assert.IsTrue(ex is NullReferenceException);
-            }
+            TestDataContext context = new TestDataContext();
+            IDataService service = IDataService.CreateNewDataService(context);
+            service.AddCatalog(0, "TestTitle", "TestAuthor", 66);
+            service.AddState(0, 5, 0);
+            Assert.IsTrue(service.GetState(0).noBooks == 5);
+            Assert.IsTrue(service.GetState(0).catalogId == service.GetCatalog(0).id);
         }
     }
 }

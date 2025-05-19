@@ -32,6 +32,12 @@ namespace LibraryLogicLayer
             return new DataService();
         }
 
+        public static IDataService CreateNewDataService(string connection)
+        {
+            IDataContext dataContext = IDataContext.CreateNewContext(connection);
+            return new DataService(dataContext);
+        }
+
         public static IDataService CreateNewDataService(IDataContext dataContext)
         {
             return new DataService(dataContext);

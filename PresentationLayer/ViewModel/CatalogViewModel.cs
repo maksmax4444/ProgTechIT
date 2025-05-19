@@ -10,7 +10,8 @@ namespace PresentationLayer.ViewModel
         private string title;
         private string author;
         private int nrOfPages;
-        private IDataService ids = IDataService.CreateNewDataService();
+        private const string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Maksym\\Documents\\ProgTechRepo\\ProgTechIT\\LibraryDataLayer\\LibraryDatabase.mdf;Integrated Security = True";
+        private IDataService ids = IDataService.CreateNewDataService(connectionString);
         private ICatalogModel icm;
         public ICommand AddSmth { get; }
         public ICommand DeleteSmth { get; }

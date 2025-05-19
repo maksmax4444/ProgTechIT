@@ -16,6 +16,7 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="State Id" DisplayMemberBinding="{Binding StateId}"/>
+                            <GridViewColumn Header="Nr. of Books" DisplayMemberBinding="{Binding NrOfBooks}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>

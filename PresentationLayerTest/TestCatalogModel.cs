@@ -1,8 +1,9 @@
-﻿namespace PresentationLayer.Model
+﻿using PresentationLayer.Model;
+namespace PresentationLayerTest
 {
-    internal class CatalogModel : ICatalogModel
+    internal class TestCatalogModel : ICatalogModel
     {
-        public CatalogModel(int catalogId, string title, string author, int nrOfPages)
+        public TestCatalogModel(int catalogId, string title, string author, int nrOfPages)
         {
             this.catalogId = catalogId;
             this.title = title;
@@ -14,5 +15,6 @@
         public string title { get; set; }
         public string author { get; set; }
         public int nrOfPages { get; set; }
+
     }
 }

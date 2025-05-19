@@ -17,6 +17,8 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Catalog Id" DisplayMemberBinding="{Binding CatalogId}"/>
+                            <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}"/>
+                            <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>

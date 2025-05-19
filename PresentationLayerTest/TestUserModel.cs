@@ -1,8 +1,10 @@
-﻿namespace PresentationLayer.Model
+﻿using PresentationLayer.Model;
+
+namespace PresentationLayerTest
 {
-    internal class UsersModel : IUsersModel
+    internal class TestUserModel : IUsersModel
     {
-        public UsersModel(int userId, string firstName, string lastName)
+        public TestUserModel(int userId, string firstName, string lastName)
         {
             this.userId = userId;
             this.firstName = firstName;

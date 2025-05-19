@@ -13,7 +13,6 @@ namespace PresentationLayer.ViewModel
         public ICommand AddSmth { get; }
         public ICommand DeleteSmth { get; }
         public ICommand UpdateSmth { get; }
-        public ICommand DisplaySmth { get; }
 
         public EventViewModel()
         {
@@ -23,7 +22,6 @@ namespace PresentationLayer.ViewModel
             AddSmth = new RelayCommand(_ => add());
             DeleteSmth = new RelayCommand(_ => delete());
             UpdateSmth = new RelayCommand(_ => update());
-            DisplaySmth = new RelayCommand(_ => display());
         }
 
         public EventViewModel(int e, int s)
@@ -34,7 +32,6 @@ namespace PresentationLayer.ViewModel
             AddSmth = new RelayCommand(_ => add());
             DeleteSmth = new RelayCommand(_ => delete());
             UpdateSmth = new RelayCommand(_ => update());
-            DisplaySmth = new RelayCommand(_ => display());
         }
 
         public int EventId
@@ -77,11 +74,6 @@ namespace PresentationLayer.ViewModel
         public void update()
         {
             ids.UpdateEvent(EventId, States);
-        }
-
-        public void display()
-        {
-
         }
     }
 }

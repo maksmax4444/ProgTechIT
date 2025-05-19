@@ -1,6 +1,6 @@
 ﻿namespace PresentationLayer.Model
 {
-    internal class ICatalogModel
+    public interface ICatalogModel
     {
         public int catalogId { get; set; }
         public string title { get; set; }

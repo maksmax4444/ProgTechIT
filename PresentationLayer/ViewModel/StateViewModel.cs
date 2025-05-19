@@ -12,7 +12,6 @@ namespace PresentationLayer.ViewModel
         private StateViewModel s; public ICommand AddSmth { get; }
         public ICommand DeleteSmth { get; }
         public ICommand UpdateSmth { get; }
-        public ICommand DisplaySmth { get; }
 
         public StateViewModel(int stateId, int nrOfBooks, int catalog)
         {
@@ -23,7 +22,6 @@ namespace PresentationLayer.ViewModel
             AddSmth = new RelayCommand(_ => add());
             DeleteSmth = new RelayCommand(_ => delete());
             UpdateSmth = new RelayCommand(_ => update());
-            DisplaySmth = new RelayCommand(_ => display());
         }
 
         public StateViewModel()
@@ -35,7 +33,6 @@ namespace PresentationLayer.ViewModel
             AddSmth = new RelayCommand(_ => add());
             DeleteSmth = new RelayCommand(_ => delete());
             UpdateSmth = new RelayCommand(_ => update());
-            DisplaySmth = new RelayCommand(_ => display());
         }
 
         public int StateId
@@ -92,11 +89,6 @@ namespace PresentationLayer.ViewModel
         public void update()
         {
             ids.UpdateState(stateId, nrOfBooks, catalog);
-        }
-
-        public void display()
-        {
-
         }
     }
 }

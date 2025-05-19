@@ -1,8 +1,10 @@
-﻿namespace PresentationLayer.Model
+﻿using PresentationLayer.Model;
+
+namespace PresentationLayerTest
 {
-    internal class EventModel : IEventModel
+    internal class TestEventModel : IEventModel
     {
-        public EventModel(int eventId, int state)
+        public TestEventModel(int eventId, int state)
         {
             this.eventId = eventId;
             this.state = state;

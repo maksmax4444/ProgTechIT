@@ -1,8 +1,10 @@
-﻿namespace PresentationLayer.Model
+﻿using PresentationLayer.Model;
+
+namespace PresentationLayerTest
 {
-    internal class StateModel : IStateModel
+    internal class TestStateModel : IStateModel
     {
-        public StateModel(int stateId, int nrOfBooks, int catalog)
+        public TestStateModel(int stateId, int nrOfBooks, int catalog)
         {
             this.stateId = stateId;
             this.nrOfBooks = nrOfBooks;

@@ -13,7 +13,6 @@ namespace PresentationLayer.ViewModel
         public ICommand AddSmth { get; }
         public ICommand DeleteSmth { get; }
         public ICommand UpdateSmth { get; }
-        public ICommand DisplaySmth { get; }
 
         public UsersViewModel(int userId, string firstName, string lastName)
         {
@@ -24,7 +23,6 @@ namespace PresentationLayer.ViewModel
             AddSmth = new RelayCommand(_ => add());
             DeleteSmth = new RelayCommand(_ => delete());
             UpdateSmth = new RelayCommand(_ => update());
-            DisplaySmth = new RelayCommand(_ => display());
         }
 
         public UsersViewModel()
@@ -36,7 +34,6 @@ namespace PresentationLayer.ViewModel
             AddSmth = new RelayCommand(_ => add());
             DeleteSmth = new RelayCommand(_ => delete());
             UpdateSmth = new RelayCommand(_ => update());
-            DisplaySmth = new RelayCommand(_ => display());
         }
 
         public int UserId
@@ -93,11 +90,6 @@ namespace PresentationLayer.ViewModel
         public void update()
         {
             ids.UpdateUser(UserId, firstName, lastName);
-        }
-
-        public void display()
-        {
-
         }
     }
 }

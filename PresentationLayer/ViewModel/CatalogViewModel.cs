@@ -15,7 +15,6 @@ namespace PresentationLayer.ViewModel
         public ICommand AddSmth { get; }
         public ICommand DeleteSmth { get; }
         public ICommand UpdateSmth { get; }
-        public ICommand DisplaySmth { get; }
 
         public CatalogViewModel(int catalogId, string title, string author, int nrOfPages)
         {
@@ -27,7 +26,6 @@ namespace PresentationLayer.ViewModel
             AddSmth = new RelayCommand(_ => add());
             DeleteSmth = new RelayCommand(_ => delete());
             UpdateSmth = new RelayCommand(_ => update());
-            DisplaySmth = new RelayCommand(_ => display());
         }
 
         public CatalogViewModel()
@@ -40,7 +38,6 @@ namespace PresentationLayer.ViewModel
             AddSmth = new RelayCommand(_ => add());
             DeleteSmth = new RelayCommand(_ => delete());
             UpdateSmth = new RelayCommand(_ => update());
-            DisplaySmth = new RelayCommand(_ => display());
         }
         public int CatalogId
         {
@@ -111,11 +108,6 @@ namespace PresentationLayer.ViewModel
         public void update()
         {
             ids.UpdateCatalog(catalogId, title, author, nrOfPages);
-        }
-
-        public void display()
-        {
-
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using LibraryLogicLayer;
 using System.Windows.Input;
-using PresentationLayer.Model;
 
 namespace PresentationLayer.ViewModel
 {

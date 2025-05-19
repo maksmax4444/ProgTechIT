@@ -8,7 +8,8 @@ namespace PresentationLayer.ViewModel
         private int stateId;
         private int nrOfBooks;
         private int catalog;
-        private IDataService ids = IDataService.CreateNewDataService();
+        private const string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Maksym\\Documents\\ProgTechRepo\\ProgTechIT\\LibraryDataLayer\\LibraryDatabase.mdf";
+        private IDataService ids = IDataService.CreateNewDataService(connectionString);
         private StateViewModel s; public ICommand AddSmth { get; }
         public ICommand DeleteSmth { get; }
         public ICommand UpdateSmth { get; }

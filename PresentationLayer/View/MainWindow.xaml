@@ -39,7 +39,6 @@
         </DataTemplate>
     </Window.Resources>
     <DockPanel>
-        <!--Command="{Binding commandAdd}"-->
         <Button x:Name="catalog" Content="Catalogs" Command="{Binding showCatalogs}" ClickMode="Press" Height="50"/>
         <Button x:Name="event" Content="Events" Command="{Binding showEvents}" ClickMode="Press" Height="50"/>
         <Button x:Name="state" Content="States" Command="{Binding showStates}" ClickMode="Press" Height="50"/>

@@ -36,5 +36,14 @@
         <Button x:Name="Add" Content="Add" Command="{Binding AddSmth}" Grid.Column="0" Grid.Row="0" ClickMode="Press" Height="50"/>
         <Button x:Name="Delete" Content="Delete" Command="{Binding DeleteSmth}" Grid.Column="1" Grid.Row="0" ClickMode="Press" Height="50"/>
         <Button x:Name="Update" Content="Update" Command="{Binding UpdateSmth}" Grid.Column="2" Grid.Row="0" ClickMode="Press" Height="50"/>
+        <GroupBox Grid.Row="3">
+            <ListView HorizontalAlignment="Stretch" ItemsSource="{Binding Events}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Event Id" DisplayMemberBinding="{Binding EventId}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
     </Grid>
 </UserControl>

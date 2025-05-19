@@ -4,7 +4,7 @@ namespace PresentationLayer.ViewModel
 {
     internal class MainViewModel : PropertyChange
     {
-        private int v;
+        private int v = 1;
         private PropertyChange _currentView;
         public ICommand showCatalogs { get; }
         public ICommand showEvents { get; }

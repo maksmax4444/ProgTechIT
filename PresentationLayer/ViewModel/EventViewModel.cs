@@ -8,7 +8,8 @@ namespace PresentationLayer.ViewModel
     {
         private int eventId;
         private int states;
-        private IDataService ids = IDataService.CreateNewDataService();
+        private const string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Maksym\\Documents\\ProgTechRepo\\ProgTechIT\\LibraryDataLayer\\LibraryDatabase.mdf";
+        private IDataService ids = IDataService.CreateNewDataService(connectionString);
         private IEventModel icm;
         public ICommand AddSmth { get; }
         public ICommand DeleteSmth { get; }

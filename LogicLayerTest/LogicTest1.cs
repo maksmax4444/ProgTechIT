@@ -32,7 +32,7 @@ namespace LogicLayerTest
             IDataService service = IDataService.CreateNewDataService(context);
             service.AddCatalog(0, "TestTitle", "TestAuthor", 66);
             service.AddState(0, 5, 0);
-            service.AddDatabaseEvent(0, 0);
+            service.AddEvent(0, 0);
             Assert.IsTrue(service.GetEvent(0).stateId == service.GetState(0).id);
         }
         [TestMethod]

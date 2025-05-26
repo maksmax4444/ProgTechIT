@@ -7,8 +7,7 @@ namespace LibraryDataLayer
         //addition
         void AddCatalog(int id, string title, string author, int nrOfPages);
         void AddUser(int id, string firstName, string lastName);
-        void AddUserEvent(int id, int stateId, int userId);
-        void AddDatabaseEvent(int id, int stateId);
+        void AddEvent(int id, int stateId);
         void AddState(int id, int nrOfBooks, int catalogId);
         //removal
         void RemoveCatalog(int catalogId);

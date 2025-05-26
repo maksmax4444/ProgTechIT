@@ -23,12 +23,7 @@ namespace LogicLayerTest
             TestLibraryUser u = new TestLibraryUser(id, firstName, lastName);
             users.Add(u);
         }
-        public void AddUserEvent(int id, int stateId, int userId)
-        {
-            TestLibraryEvent e = new TestLibraryEvent(id, GetStateFromId(stateId));
-            events.Add(e);
-        }
-        public void AddDatabaseEvent(int id, int stateId)
+        public void AddEvent(int id, int stateId)
         {
             TestLibraryEvent e = new TestLibraryEvent(id, GetStateFromId(stateId));
             events.Add(e);

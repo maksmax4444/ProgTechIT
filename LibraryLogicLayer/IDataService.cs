@@ -7,8 +7,7 @@ namespace LibraryLogicLayer
     {
         public void AddCatalog(int id, string title, string author, int nOfPages);
         public void AddUser(int id, string fName, string lName);
-        public void AddUserEvent(int id, int stateId, int userId);
-        public void AddDatabaseEvent(int id, int stateId);
+        public void AddEvent(int id, int stateId);
         public void AddState(int id, int nrOfBooks, int catalogId);
 
         public void RemoveCatalog(int id);

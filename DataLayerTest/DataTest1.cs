@@ -44,7 +44,7 @@ namespace DataLayerTest
             Assert.IsNull(repo.GetEvent(1));
             repo.AddCatalog(2, "TestTitle", "TestAuthor", 66);
             repo.AddState(1, 5, 2);
-            repo.AddDatabaseEvent(1, 1);
+            repo.AddEvent(1, 1);
             Assert.IsNotNull(repo.GetEvent(1));
             Assert.IsTrue(repo.GetEvent(1).state.nrOfBooks == repo.GetState(1).nrOfBooks);
             repo.RemoveEvent(1);

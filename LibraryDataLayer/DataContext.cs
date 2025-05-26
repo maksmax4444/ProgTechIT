@@ -42,19 +42,11 @@ namespace LibraryDataLayer
             _context.Users.InsertOnSubmit(dbEntry);
             _context.SubmitChanges();
         }
-        public void AddUserEvent(int id, int stateId, int userId)
+        public void AddEvent(int id, int stateId)
         {
-            UserEvent e = new UserEvent(id, GetStateFromId(stateId), GetUsersFromId(userId));
+            LibraryEvent e = new LibraryEvent(id, GetStateFromId(stateId));
             events.Add(e);
-            Event dbEntry = new() { eventId = id, StateId = e.state.stateId , userId = e.user.userId };
-            _context.Events.InsertOnSubmit(dbEntry);
-            _context.SubmitChanges();
-        }
-        public void AddDatabaseEvent(int id, int stateId)
-        {
-            DatabaseEvent e = new DatabaseEvent(id, GetStateFromId(stateId));
-            events.Add(e);
-            Event dbEntry = new() { eventId = id, StateId = e.state.stateId };
+            Event dbEntry = new() { eventId = id, StateId = e.state.stateId};
             _context.Events.InsertOnSubmit(dbEntry);
             _context.SubmitChanges();
         }
@@ -99,17 +91,14 @@ namespace LibraryDataLayer
         //get methods
         public ICatalog? GetCatalog(int id)
         {
-            var entity = (from Catalog
-                       in _context.Catalogs
-                       where Catalog.catalogId == id
-                       select Catalog).FirstOrDefault();
-            if (entity == null)
+            var catalogQuery = _context.Catalogs.ToArray().Where<Catalog>(cat => cat.catalogId == id).Select<Catalog, Catalog>(cat => cat).SingleOrDefault<Catalog>();
+            if (catalogQuery == null)
             {
                 return null;
             }
             else
             {
-                return new LibraryCatalog(entity.catalogId, entity.title, entity.author, entity.nrOfPages);
+                return new LibraryCatalog(catalogQuery.catalogId, catalogQuery.title, catalogQuery.author, catalogQuery.nrOfPages);
             }
         }
         public IUser? GetUser(int id)

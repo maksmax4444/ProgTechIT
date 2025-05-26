@@ -4,6 +4,5 @@
     {
         public int id { get; set; }
         public int stateId { get; set; }
-        public int userId { get; set; }
     }
 }

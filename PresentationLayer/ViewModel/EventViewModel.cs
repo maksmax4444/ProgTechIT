@@ -64,7 +64,7 @@ namespace PresentationLayer.ViewModel
         }
         public void add()
         {
-            ids.AddDatabaseEvent(eventId, states);
+            ids.AddEvent(eventId, states);
         }
 
         public void delete()

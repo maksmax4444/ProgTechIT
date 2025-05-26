@@ -20,7 +20,7 @@ namespace LibraryLogicLayer
         //conversions
         private CatalogService CatalogServiceConversion(ICatalog c) => new CatalogService(c.catalogId, c.title, c.author, c.nrOfPages);
         private UserService UserServiceConversion(IUser c) => new UserService(c.userId, c.firstName, c.lastName);
-        private EventService EventServiceConversion(IEvent c) => new EventService(c.eventId, c.state.stateId, 0);
+        private EventService EventServiceConversion(IEvent c) => new EventService(c.eventId, c.state.stateId);
         private StateService StateServiceConversion(IState c) => new StateService(c.stateId, c.nrOfBooks, c.catalog.catalogId);
 
         //Create
@@ -32,13 +32,9 @@ namespace LibraryLogicLayer
         {
             _context.AddUser(id, fName, lName);
         }
-        public void AddUserEvent(int id, int stateId, int userId)
+        public void AddEvent(int id, int stateId)
         {
-            _context.AddUserEvent(id, stateId, userId);
-        }
-        public void AddDatabaseEvent(int id, int stateId)
-        {
-            _context.AddDatabaseEvent(id, stateId);
+            _context.AddEvent(id, stateId);
         }
         public void AddState(int id, int nrOfBooks, int catalogId)
         {
@@ -92,7 +88,7 @@ namespace LibraryLogicLayer
         public void UpdateEvent(int id, int stateId)
         {
             _context.RemoveEvent(id);
-            _context.AddDatabaseEvent(id, stateId);
+            _context.AddEvent(id, stateId);
         }
         public void UpdateState(int id, int nrOfBooks, int catalogId)
         {

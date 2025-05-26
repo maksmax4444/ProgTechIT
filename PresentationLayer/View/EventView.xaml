@@ -41,14 +41,14 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center">Id:</Label>
-            <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center">Number of Books:</Label>
+            <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center">State Id:</Label>
 
             <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding EventId,  UpdateSourceTrigger=PropertyChanged}"/>
             <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding NrOfBooks,  UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Button x:Name="Add" Content="Add" Command="{Binding AddSmth}" Grid.Column="0" Grid.Row="0" ClickMode="Press" Height="50"/>
-            <Button x:Name="Delete" Content="Delete" Command="{Binding DeleteSmth}" Grid.Column="1" Grid.Row="0" ClickMode="Press" Height="50"/>
-            <Button x:Name="Update" Content="Update" Command="{Binding UpdateSmth}" Grid.Column="2" Grid.Row="0" ClickMode="Press" Height="50"/>
+            <Button x:Name="Add" Content="Add" Command="{Binding Add}" Grid.Column="0" Grid.Row="0" ClickMode="Press" Height="50"/>
+            <Button x:Name="Delete" Content="Delete" Command="{Binding Delete}" Grid.Column="1" Grid.Row="0" ClickMode="Press" Height="50"/>
+            <Button x:Name="Update" Content="Update" Command="{Binding Update}" Grid.Column="2" Grid.Row="0" ClickMode="Press" Height="50"/>
             <Button x:Name="Load" Content="Load" Command="{Binding Load}" Grid.Column="3" Grid.Row="0" ClickMode="Press" Height="50"/>
         </Grid>
     </DockPanel>

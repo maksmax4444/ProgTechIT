@@ -12,7 +12,17 @@ namespace LibraryLogicLayer
         public int eventId { get; set; }
         public IState state { get; set; }
 
-        private DataService myDataService = new DataService();
+        private static IDataService myDataService;
+
+        public Buy()
+        {
+
+        }
+
+        public Buy(IDataService dataService)
+        {
+            myDataService = dataService;
+        }
 
         public void BuyUnit(int amount)
         {

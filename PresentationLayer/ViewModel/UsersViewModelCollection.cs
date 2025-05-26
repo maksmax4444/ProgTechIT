@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using LibraryDataLayer;
 using LibraryLogicLayer;
 
 namespace PresentationLayer.ViewModel
@@ -78,18 +79,39 @@ namespace PresentationLayer.ViewModel
             Add = new RelayCommand(_ => add());
             Delete = new RelayCommand(_ => delete());
             Update = new RelayCommand(_ => update());
+            Load = new RelayCommand(_ => load());
         }
         public void add()
         {
-            ids.AddUser(UserId, FirstName, LastName);
+            if (connectionString == "")
+            {
+                Users.Add(new UsersViewModel(UserId, FirstName, LastName));
+            }
+            else ids.AddUser(UserId, FirstName, LastName);
         }
         public void delete()
         {
-            ids.RemoveUser(UserId);
+            if (connectionString == "")
+            {
+                for (int i = Users.Count - 1; i >= 0; i--)
+                {
+                    if (Users[i].UserId == UserId)
+                    {
+                        Users.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
+            else ids.RemoveUser(UserId);
         }
         public void update()
         {
-            ids.UpdateUser(UserId, FirstName, LastName);
+            if (connectionString == "")
+            {
+                delete();
+                add();
+            }
+            else ids.UpdateUser(UserId, FirstName, LastName);
         }
         public void load()
         {

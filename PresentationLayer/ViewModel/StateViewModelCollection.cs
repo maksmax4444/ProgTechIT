@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using LibraryDataLayer;
 using LibraryLogicLayer;
 
 namespace PresentationLayer.ViewModel
@@ -77,20 +78,41 @@ namespace PresentationLayer.ViewModel
             Add = new RelayCommand(_ => add());
             Delete = new RelayCommand(_ => delete());
             Update = new RelayCommand(_ => update());
+            Load = new RelayCommand(_ => load());
         }
         public void add()
         {
-            ids.AddState(StateId, NrOfBooks, Catalog);
+            if (connectionString == "")
+            {
+                States.Add(new StateViewModel(StateId, NrOfBooks, Catalog));
+            }
+            else ids.AddState(StateId, NrOfBooks, Catalog);
         }
 
         public void delete()
         {
-            ids.RemoveState(StateId);
+            if (connectionString == "")
+            {
+                for (int i = States.Count - 1; i >= 0; i--)
+                {
+                    if (States[i].StateId == StateId)
+                    {
+                        States.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
+            else ids.RemoveState(StateId);
         }
 
         public void update()
         {
-            ids.UpdateState(stateId, nrOfBooks, Catalog);
+            if (connectionString == "")
+            {
+                delete();
+                add();
+            }
+            else ids.UpdateState(stateId, nrOfBooks, Catalog);
         }
         public void load()
         {

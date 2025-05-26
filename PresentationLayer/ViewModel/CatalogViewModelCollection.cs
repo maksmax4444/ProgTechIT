@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using LibraryDataLayer;
 using LibraryLogicLayer;
 
 namespace PresentationLayer.ViewModel
@@ -93,21 +94,40 @@ namespace PresentationLayer.ViewModel
             Add = new RelayCommand(_ => add());
             Delete= new RelayCommand(_ => delete());
             Update = new RelayCommand(_ => update());
+            Load = new RelayCommand(_ => load());
         }
 
         public void add()
         {
-            ids.AddCatalog(CatalogId, Title, Author, NrOfPages);
+            if (connectionString == "")
+            {
+                Catalogs.Add(new CatalogViewModel(CatalogId, Title, Author, NrOfPages));
+            }
+            else ids.AddCatalog(CatalogId, Title, Author, NrOfPages);
         }
-
         public void delete()
         {
-            ids.RemoveCatalog(CatalogId);
+            if (connectionString == "")
+            {
+                for(int i = Catalogs.Count-1; i>=0; i--)
+                {
+                    if (Catalogs[i].CatalogId == CatalogId)
+                    {
+                        Catalogs.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
+            else ids.RemoveCatalog(CatalogId);
         }
-
         public void update()
         {
-            ids.UpdateCatalog(CatalogId, Title, Author, NrOfPages);
+            if (connectionString == "")
+            {
+                delete();
+                add();
+            }
+            else ids.UpdateCatalog(CatalogId, Title, Author, NrOfPages);
         }
 
         public void load()

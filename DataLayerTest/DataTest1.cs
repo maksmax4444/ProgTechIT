@@ -84,5 +84,16 @@ namespace DataLayerTest
             repo.RemoveCatalog(24);
             repo.CleanData();
         }
+
+        [TestMethod]
+        public void OtherGenerationMethod()
+        {
+            IDataContext repo = IDataContext.CreateNewContext(connectionString);
+            repo.CleanData();
+            TestDataGenerator.PrepareCatalogData(repo);
+            Assert.IsNotNull (repo.GetAllCatalog());
+            repo.RemoveCatalog(123);
+            repo.CleanData();
+        }
     }
 }

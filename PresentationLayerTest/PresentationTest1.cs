@@ -1,6 +1,4 @@
-﻿using LibraryDataLayer;
-using LibraryLogicLayer;
-using PresentationLayer;
+﻿using PresentationLayer.ViewModel;
 
 namespace PresentationLayerTest
 {
@@ -10,33 +8,33 @@ namespace PresentationLayerTest
         [TestMethod]
         public void CatalogModuleTest()
         {
-            TestCatalogModel t = new TestCatalogModel(0, "TestCatalog", "TestAuthor", 10);
-            Assert.IsTrue(t.nrOfPages == 10);
-            Assert.IsTrue(t.catalogId == 0);
-            Assert.IsTrue(t.title == "TestCatalog");
+            CatalogViewModel t = new CatalogViewModel(0, "TestCatalog", "TestAuthor", 10);
+            Assert.IsTrue(t.NrOfPages == 10);
+            Assert.IsTrue(t.CatalogId == 0);
+            Assert.IsTrue(t.Title == "TestCatalog");
         }
         [TestMethod]
         public void UserModuleTest()
         {
-            TestUserModel t = new TestUserModel(0, "TestName", "TestLastName");
-            Assert.IsTrue(t.userId == 0);
-            Assert.IsTrue(t.firstName == "TestName");
-            Assert.IsTrue(t.lastName == "TestLastName");
+            UsersViewModel t = new UsersViewModel(0, "TestName", "TestLastName");
+            Assert.IsTrue(t.UserId == 0);
+            Assert.IsTrue(t.FirstName == "TestName");
+            Assert.IsTrue(t.LastName == "TestLastName");
         }
         [TestMethod]
         public void EventModuleTest()
         {
-            TestEventModel t = new TestEventModel(0, 10);
-            Assert.IsTrue(t.eventId == 0);
-            Assert.IsTrue(t.nrOfBooks == 10);
+            EventViewModel t = new EventViewModel(0, 10);
+            Assert.IsTrue(t.EventId == 0);
+            Assert.IsTrue(t.NrOfBooks == 10);
         }
         [TestMethod]
         public void StateModuleTest()
         {
-            TestStateModel t = new TestStateModel(0, 1, 5);
-            Assert.IsTrue(t.stateId == 0);
-            Assert.IsTrue(t.nrOfBooks == 1);
-            Assert.IsTrue(t.catalog == 5);
+            StateViewModel t = new StateViewModel(0, 1, 5);
+            Assert.IsTrue(t.StateId == 0);
+            Assert.IsTrue(t.NrOfBooks == 1);
+            Assert.IsTrue(t.CatalogId == 5);
         }
     }
 }

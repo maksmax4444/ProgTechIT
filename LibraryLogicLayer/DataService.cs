@@ -74,6 +74,43 @@ namespace LibraryLogicLayer
         {
             return StateServiceConversion(_context.GetState(id));
         }
+        //Get All
+        public ICatalogService[] GetAllCatalog()
+        {
+            List<ICatalogService> catalogList = new List<ICatalogService>();
+            foreach (ICatalog c in _context.GetAllCatalog())
+            {
+                catalogList.Add(CatalogServiceConversion(c));
+            }
+            return catalogList.ToArray();
+        }
+        public IUserService[] GetAllUser()
+        {
+            List<IUserService> userList = new List<IUserService>();
+            foreach (IUser u in _context.GetAllUser())
+            {
+                userList.Add(UserServiceConversion(u));
+            }
+            return userList.ToArray();
+        }
+        public IEventService[] GetAllEvent()
+        {
+            List<IEventService> eventList = new List<IEventService>();
+            foreach (IEvent e in _context.GetAllEvent())
+            {
+                eventList.Add(EventServiceConversion(e));
+            }
+            return eventList.ToArray();
+        }
+        public IStateService[] GetAllState()
+        {
+            List<IStateService> stateList = new List<IStateService>();
+            foreach (IState s in _context.GetAllState())
+            {
+                stateList.Add(StateServiceConversion(s));
+            }
+            return stateList.ToArray();
+        }
         //Update
         public void UpdateCatalog(int id, string title, string author, int nOfPages)
         {

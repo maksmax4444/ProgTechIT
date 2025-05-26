@@ -28,7 +28,7 @@ namespace PresentationLayerTest
         {
             TestEventModel t = new TestEventModel(0, 10);
             Assert.IsTrue(t.eventId == 0);
-            Assert.IsTrue(t.state == 10);
+            Assert.IsTrue(t.nrOfBooks == 10);
         }
         [TestMethod]
         public void StateModuleTest()

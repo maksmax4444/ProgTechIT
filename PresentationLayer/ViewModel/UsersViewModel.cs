@@ -1,42 +1,22 @@
-﻿using System.Windows.Input;
-using LibraryLogicLayer;
-
-namespace PresentationLayer.ViewModel
+﻿namespace PresentationLayer.ViewModel
 {
     internal class UsersViewModel : PropertyChange
     {
         int userId;
         string firstName;
         string lastName;
-        private const string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Maksym\\Documents\\ProgTechRepo\\ProgTechIT\\LibraryDataLayer\\LibraryDatabase.mdf";
-        private IDataService ids = IDataService.CreateNewDataService(connectionString);
-        private UsersViewModel u;
-        public ICommand AddSmth { get; }
-        public ICommand DeleteSmth { get; }
-        public ICommand UpdateSmth { get; }
-
         public UsersViewModel(int userId, string firstName, string lastName)
         {
             this.userId = userId;
             this.firstName = firstName;
             this.lastName = lastName;
-
-            AddSmth = new RelayCommand(_ => add());
-            DeleteSmth = new RelayCommand(_ => delete());
-            UpdateSmth = new RelayCommand(_ => update());
         }
-
         public UsersViewModel()
         {
             UserId = 0;
             FirstName = "";
             LastName = "";
-
-            AddSmth = new RelayCommand(_ => add());
-            DeleteSmth = new RelayCommand(_ => delete());
-            UpdateSmth = new RelayCommand(_ => update());
         }
-
         public int UserId
         {
             get
@@ -50,8 +30,7 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged(nameof(UserId));
             }
         }
-
-        public String FirstName
+        public string FirstName
         {
             get
             {
@@ -64,8 +43,7 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged(nameof(FirstName));
             }
         }
-
-        public String LastName
+        public string LastName
         {
             get
             {
@@ -77,20 +55,6 @@ namespace PresentationLayer.ViewModel
                 this.lastName = value;
                 OnPropertyChanged(nameof(LastName));
             }
-        }
-        public void add()
-        {
-            ids.AddUser(userId, firstName, lastName);
-        }
-
-        public void delete()
-        {
-            ids.RemoveUser(userId);
-        }
-
-        public void update()
-        {
-            ids.UpdateUser(UserId, firstName, lastName);
         }
     }
 }

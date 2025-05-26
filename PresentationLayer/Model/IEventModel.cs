@@ -3,6 +3,6 @@
     public interface IEventModel
     {
         public int eventId { get; set; }
-        public int state { get; set; }
+        public int nrOfBooks { get; set; }
     }
 }

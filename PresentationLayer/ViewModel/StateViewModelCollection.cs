@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using LibraryLogicLayer;
-using PresentationLayer.Model;
 
 namespace PresentationLayer.ViewModel
 {
@@ -9,11 +8,15 @@ namespace PresentationLayer.ViewModel
     {
         private int stateId;
         private int nrOfBooks;
-        private CatalogViewModel catalog;
+        private int catalog;
+        private const string connectionString = "";
+        private IDataService ids = IDataService.CreateNewDataService(connectionString);
+        private StateViewModel _detail;
         public ObservableCollection<StateViewModel> States { get; set; }
-        public ICommand commandAdd { get; }
-        public ICommand commandDelete { get; }
-
+        public ICommand Add { get; }
+        public ICommand Delete { get; }
+        public ICommand Update { get; }
+        public ICommand Load { get; }
         public int StateId
         {
             get
@@ -27,7 +30,6 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged(nameof(StateId));
             }
         }
-
         public int NrOfBooks
         {
             get
@@ -41,7 +43,7 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged(nameof(NrOfBooks));
             }
         }
-        public CatalogViewModel Catalog
+        public int Catalog
         {
             get
             {
@@ -54,10 +56,49 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged(nameof(Catalog));
             }
         }
+        public StateViewModel Detail
+        {
+            get
+            {
+                return _detail;
+            }
+
+            set
+            {
+                _detail = value;
+                OnPropertyChanged(nameof(Detail));
+                StateId = value.StateId;
+                NrOfBooks = value.NrOfBooks;
+            }
+        }
         public StateViewModelCollection()
         {
             States = new ObservableCollection<StateViewModel> { };
-            //Place for commands
+            Add = new RelayCommand(_ => add());
+            Delete = new RelayCommand(_ => delete());
+            Update = new RelayCommand(_ => update());
+        }
+        public void add()
+        {
+            ids.AddState(StateId, NrOfBooks, Catalog);
+        }
+
+        public void delete()
+        {
+            ids.RemoveState(StateId);
+        }
+
+        public void update()
+        {
+            ids.UpdateState(stateId, nrOfBooks, Catalog);
+        }
+        public void load()
+        {
+            States.Clear();
+            foreach (var state in ids.GetAllState())
+            {
+                States.Add(new StateViewModel(StateId = state.id, NrOfBooks = state.noBooks, Catalog = state.catalogId));
+            }
         }
     }
 }

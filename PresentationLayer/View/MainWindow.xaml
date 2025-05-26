@@ -24,30 +24,26 @@
         <DataTemplate DataType="{x:Type vmodel:UsersViewModelCollection}">
             <localview:UsersView />
         </DataTemplate>
-
-        <DataTemplate DataType="{x:Type vmodel:CatalogViewModel}">
-            <localview:CatalogViewDetail />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vmodel:EventViewModel}">
-            <localview:EventViewDetail />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vmodel:StateViewModel}">
-            <localview:StateViewDetail />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vmodel:UsersViewModel}">
-            <localview:UsersViewDetail />
-        </DataTemplate>
     </Window.Resources>
-    <DockPanel>
-        <Button x:Name="catalog" Content="Catalogs" Command="{Binding showCatalogs}" ClickMode="Press" Height="50"/>
-        <Button x:Name="event" Content="Events" Command="{Binding showEvents}" ClickMode="Press" Height="50"/>
-        <Button x:Name="state" Content="States" Command="{Binding showStates}" ClickMode="Press" Height="50"/>
-        <Button x:Name="user" Content="Users" Command="{Binding showUsers}" ClickMode="Press" Height="50"/>
-
-        <Button x:Name="Detail" Content="Detail" Command="{Binding Detail}" ClickMode="Press" Height="50"/>
-
-        <Border Background="White" CornerRadius="8" Padding="10" BorderBrush="#DDD" BorderThickness="1">
-        <ContentControl Content="{Binding CurrentView}" />
-        </Border>
-    </DockPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ContentControl Grid.Column="0" Grid.Row="0" Content="{Binding CurrentView}" />
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Button x:Name="catalog" Grid.Row="0" Grid.Column="0" Content="Catalogs" Command="{Binding showCatalogs}" ClickMode="Press" Height="50"/>
+            <Button x:Name="event" Grid.Row="0" Grid.Column="1" Content="Events" Command="{Binding showEvents}" ClickMode="Press" Height="50"/>
+            <Button x:Name="state" Grid.Row="1" Grid.Column="0" Content="States" Command="{Binding showStates}" ClickMode="Press" Height="50"/>
+            <Button x:Name="user" Grid.Row="1" Grid.Column="1" Content="Users" Command="{Binding showUsers}" ClickMode="Press" Height="50"/>
+        </Grid>
+    </Grid>
 </Window>

@@ -1,41 +1,22 @@
-﻿using System.Windows.Input;
-using LibraryLogicLayer;
-
-namespace PresentationLayer.ViewModel
+﻿namespace PresentationLayer.ViewModel
 {
     internal class StateViewModel : PropertyChange
     {
         private int stateId;
         private int nrOfBooks;
-        private int catalog;
-        private const string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Maksym\\Documents\\ProgTechRepo\\ProgTechIT\\LibraryDataLayer\\LibraryDatabase.mdf";
-        private IDataService ids = IDataService.CreateNewDataService(connectionString);
-        private StateViewModel s; public ICommand AddSmth { get; }
-        public ICommand DeleteSmth { get; }
-        public ICommand UpdateSmth { get; }
-
-        public StateViewModel(int stateId, int nrOfBooks, int catalog)
+        private int catalogId;
+        public StateViewModel(int stateId, int nrOfBooks, int catalogId)
         {
             this.stateId = stateId;
             this.nrOfBooks = nrOfBooks;
-            this.catalog = catalog;
-
-            AddSmth = new RelayCommand(_ => add());
-            DeleteSmth = new RelayCommand(_ => delete());
-            UpdateSmth = new RelayCommand(_ => update());
+            this.catalogId = catalogId;
         }
-
         public StateViewModel()
         {
             StateId = 0;
             NrOfBooks = 0;
-            Catalog = 0;
-
-            AddSmth = new RelayCommand(_ => add());
-            DeleteSmth = new RelayCommand(_ => delete());
-            UpdateSmth = new RelayCommand(_ => update());
+            CatalogId = 0;
         }
-
         public int StateId
         {
             get
@@ -49,7 +30,6 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged(nameof(StateId));
             }
         }
-
         public int NrOfBooks
         {
             get
@@ -63,33 +43,18 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged(nameof(NrOfBooks));
             }
         }
-
-        public int Catalog
+        public int CatalogId
         {
             get
             {
-                return this.catalog;
+                return this.catalogId;
             }
 
             set
             {
-                this.catalog = value;
-                OnPropertyChanged(nameof(Catalog));
+                this.catalogId = value;
+                OnPropertyChanged(nameof(CatalogId));
             }
-        }
-        public void add()
-        {
-            ids.AddState(stateId, nrOfBooks, catalog);
-        }
-
-        public void delete()
-        {
-            ids.RemoveState(stateId);
-        }
-
-        public void update()
-        {
-            ids.UpdateState(stateId, nrOfBooks, catalog);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using LibraryLogicLayer;
 
 namespace PresentationLayer.ViewModel
 {
@@ -8,9 +9,14 @@ namespace PresentationLayer.ViewModel
         private int userId;
         private string firstName;
         private string lastName;
-        public ICommand commandAdd { get; }
-        public ICommand commandDelete { get; }
+        private const string connectionString = "";
+        private IDataService ids = IDataService.CreateNewDataService(connectionString);
+        private UsersViewModel _detail;
         public ObservableCollection<UsersViewModel> Users { get; set; }
+        public ICommand Add { get; }
+        public ICommand Delete { get; }
+        public ICommand Update { get; }
+        public ICommand Load { get; }
         public int UserId
         {
             get
@@ -24,7 +30,7 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged(nameof(UserId));
             }
         }
-        public String FirstName
+        public string FirstName
         {
             get
             {
@@ -37,7 +43,7 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged(nameof(FirstName));
             }
         }
-        public String LastName
+        public string LastName
         {
             get
             {
@@ -50,10 +56,48 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged(nameof(LastName));
             }
         }
+        public UsersViewModel Detail
+        {
+            get
+            {
+                return _detail;
+            }
+
+            set
+            {
+                _detail = value;
+                OnPropertyChanged(nameof(Detail));
+                UserId = value.UserId;
+                FirstName = value.FirstName;
+                LastName = value.LastName;
+            }
+        }
         public UsersViewModelCollection()
         {
             Users = new ObservableCollection<UsersViewModel> { };
-            //Place for commands
+            Add = new RelayCommand(_ => add());
+            Delete = new RelayCommand(_ => delete());
+            Update = new RelayCommand(_ => update());
+        }
+        public void add()
+        {
+            ids.AddUser(UserId, FirstName, LastName);
+        }
+        public void delete()
+        {
+            ids.RemoveUser(UserId);
+        }
+        public void update()
+        {
+            ids.UpdateUser(UserId, FirstName, LastName);
+        }
+        public void load()
+        {
+            Users.Clear();
+            foreach (var user in ids.GetAllUser())
+            {
+                Users.Add(new UsersViewModel(UserId = user.id, FirstName = user.fName, LastName = user.lName));
+            }
         }
     }
 }

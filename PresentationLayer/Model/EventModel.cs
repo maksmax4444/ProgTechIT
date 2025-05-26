@@ -2,13 +2,13 @@
 {
     internal class EventModel : IEventModel
     {
-        public EventModel(int eventId, int state)
+        public EventModel(int eventId, int nrOfBooks)
         {
             this.eventId = eventId;
-            this.state = state;
+            this.nrOfBooks = nrOfBooks;
         }
 
         public int eventId { get; set; }
-        public int state { get; set; }
+        public int nrOfBooks { get; set; }
     }
 }

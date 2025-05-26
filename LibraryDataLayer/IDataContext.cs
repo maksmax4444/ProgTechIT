@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace LibraryDataLayer
+﻿namespace LibraryDataLayer
 {
     public interface IDataContext
     {

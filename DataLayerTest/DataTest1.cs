@@ -1,4 +1,5 @@
 ﻿using LibraryDataLayer;
+using System.Xml.Serialization;
 
 namespace DataLayerTest
 {
@@ -67,6 +68,20 @@ namespace DataLayerTest
             repo.RemoveState(2);
             repo.RemoveCatalog(3);
             Assert.IsNull(repo.GetState(2));
+            repo.CleanData();
+        }
+
+        [TestMethod]
+        public void GetAllTest()
+        {
+            IDataContext repo = IDataContext.CreateNewContext(connectionString);
+            repo.CleanData();
+            repo.AddCatalog(13, "TestTitle", "TestAuthor", 66);
+            repo.AddCatalog(24, "TestTitle", "TestAuthor", 67);
+            ICatalog[] array = repo.GetAllCatalog();
+            Assert.IsNotNull(array);
+            repo.RemoveCatalog(13);
+            repo.RemoveCatalog(24);
             repo.CleanData();
         }
     }

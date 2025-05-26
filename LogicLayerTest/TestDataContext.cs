@@ -73,6 +73,23 @@ namespace LogicLayerTest
             return GetStateFromId(id);
         }
 
+        public ICatalog[]? GetAllCatalog()
+        {
+            return catalogs.ToArray();
+        }
+        public IUser[]? GetAllUser()
+        {
+            return users.ToArray();
+        }
+        public IEvent[]? GetAllEvent()
+        {
+            return events.ToArray();
+        }
+        public IState[]? GetAllState()
+        {
+            return states.ToArray();
+        }
+
         //private get from id methods
         TestLibraryUser GetUsersFromId(int id)
         {

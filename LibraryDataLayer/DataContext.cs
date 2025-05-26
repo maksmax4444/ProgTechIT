@@ -147,6 +147,83 @@ namespace LibraryDataLayer
             }
         }
 
+        public ICatalog[]? GetAllCatalog()
+        {
+            var entity = (from Catalog
+                       in _context.Catalogs
+                          select Catalog);
+            if (entity == null)
+            {
+                return null;
+            }
+            else
+            {
+                List<LibraryCatalog> catalogs = new List<LibraryCatalog>();
+                foreach (var e in entity)
+                {
+                    catalogs.Add(new LibraryCatalog(e.catalogId, e.title, e.author, e.nrOfPages));
+                }
+                return catalogs.ToArray();
+            }
+        }
+        public IUser[]? GetAllUser()
+        {
+            var entity = (from User
+                       in _context.Users
+                          select User);
+            if (entity == null)
+            {
+                return null;
+            }
+            else
+            {
+                List<LibraryUser> states = new List<LibraryUser>();
+                foreach (var e in entity)
+                {
+                    states.Add(new LibraryUser(e.userId, e.firstName, e.lastName));
+                }
+                return states.ToArray();
+            }
+        }
+        public IEvent[]? GetAllEvent()
+        {
+            var entity = (from Event
+                       in _context.Events
+                          select Event);
+            if (entity == null)
+            {
+                return null;
+            }
+            else
+            {
+                List<LibraryEvent> states = new List<LibraryEvent>();
+                foreach (var e in entity)
+                {
+                    states.Add(new LibraryEvent(e.eventId, GetStateFromId(e.StateId)));
+                }
+                return states.ToArray();
+            }
+        }
+        public IState[]? GetAllState()
+        {
+            var entity = (from State
+                       in _context.States
+                          select State);
+            if (entity == null)
+            {
+                return null;
+            }
+            else
+            {
+                List<LibraryState> states = new List<LibraryState>();
+                foreach (var e in entity)
+                {
+                    states.Add(new LibraryState(e.StateId, e.NrOfBooks, GetCatalogFromId((int)e.catalogId)));
+                }
+                return states.ToArray();
+            }
+        }
+
         //private get from id methods
         LibraryUser GetUsersFromId(int id)
         {

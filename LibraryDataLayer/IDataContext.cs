@@ -19,6 +19,11 @@ namespace LibraryDataLayer
         public IUser? GetUser(int id);
         public IEvent? GetEvent(int id);
         public IState? GetState(int id);
+        //get all
+        public ICatalog[]? GetAllCatalog();
+        public IUser[]? GetAllUser();
+        public IEvent[]? GetAllEvent();
+        public IState[]? GetAllState();
 
         public void CleanData();
 

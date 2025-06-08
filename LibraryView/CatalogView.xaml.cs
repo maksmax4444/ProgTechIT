@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PresentationLayer.View
+namespace LibraryView
 {
     /// <summary>
-    /// Logika interakcji dla klasy Users.xaml
+    /// Logika interakcji dla klasy Catalog.xaml
     /// </summary>
-    public partial class UsersView : UserControl
+    public partial class CatalogView : UserControl
     {
-        public UsersView()
+        public CatalogView()
         {
             InitializeComponent();
         }

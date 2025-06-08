@@ -1,4 +1,4 @@
-﻿using PresentationLayer.ViewModel;
+﻿using LibraryViewModel;
 
 namespace PresentationLayerTest
 {

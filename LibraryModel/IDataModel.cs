@@ -35,9 +35,9 @@ namespace LibraryModel
         {
             return new DataModel();
         }
-        public static IDataModel CreateNewDataModel(string connectionString)
+        public static IDataModel CreateNewDataModel(IDataService s)
         {
-            return new DataModel(connectionString);
+            return new DataModel(s);
         }
     }
 }

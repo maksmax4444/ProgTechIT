@@ -10,28 +10,28 @@ namespace LogicLayerTest
         public void CatalogTests()
         {
             TestDataContext context = new TestDataContext();
-            IDataService service = IDataService.CreateNewDataService(context);
-            service.AddCatalog(0, "TestTitle", "TestAuthor", 66);
-            Assert.IsTrue(service.GetCatalog(0).title == "TestTitle");
-            Assert.IsTrue(service.GetCatalog(0).author == "TestAuthor");
-            Assert.IsTrue(service.GetCatalog(0).nrOfPages == 66);
+            DataService service = new DataService(context);
+            service.AddCatalog(0, "t", "a", 1);
+            Assert.IsTrue(service.GetCatalog(0).title == "t");
+            Assert.IsTrue(service.GetCatalog(0).author == "a");
+            Assert.IsTrue(service.GetCatalog(0).nrOfPages == 1);
         }
         [TestMethod]
         public void UserTests()
         {
             TestDataContext context = new TestDataContext();
-            IDataService service = IDataService.CreateNewDataService(context);
-            service.AddUser(0, "TestFirstName", "TestLastName");
-            Assert.IsTrue(service.GetUser(0).fName == "TestFirstName");
-            Assert.IsTrue(service.GetUser(0).lName == "TestLastName");
+            DataService service = new DataService(context);
+            service.AddUser(0, "f", "l");
+            Assert.IsTrue(service.GetUser(0).fName == "f");
+            Assert.IsTrue(service.GetUser(0).lName == "l");
         }
         [TestMethod]
         public void EventTests()
         {
             TestDataContext context = new TestDataContext();
-            IDataService service = IDataService.CreateNewDataService(context);
-            service.AddCatalog(0, "TestTitle", "TestAuthor", 66);
-            service.AddState(0, 5, 0);
+            DataService service = new DataService(context);
+            service.AddCatalog(0, "t", "a", 1);
+            service.AddState(0, 1, 0);
             service.AddEvent(0, 0);
             Assert.IsTrue(service.GetEvent(0).stateId == service.GetState(0).id);
         }
@@ -39,10 +39,10 @@ namespace LogicLayerTest
         public void StateTests()
         {
             TestDataContext context = new TestDataContext();
-            IDataService service = IDataService.CreateNewDataService(context);
-            service.AddCatalog(0, "TestTitle", "TestAuthor", 66);
-            service.AddState(0, 5, 0);
-            Assert.IsTrue(service.GetState(0).noBooks == 5);
+            DataService service = new DataService(context);
+            service.AddCatalog(0, "t", "a", 1);
+            service.AddState(0, 1, 0);
+            Assert.IsTrue(service.GetState(0).noBooks == 1);
             Assert.IsTrue(service.GetState(0).catalogId == service.GetCatalog(0).id);
         }
     }

@@ -21,15 +21,16 @@ namespace LibraryViewModel
             ids = IDataModel.CreateNewDataModel();
         }
 
-        public CatalogViewModelCollection(string connectionString)
+        public CatalogViewModelCollection(IDataModel m)
         {
             Catalogs = new ObservableCollection<CatalogViewModel> { };
             Add = new RelayCommand(() => add());
             Delete = new RelayCommand(() => delete());
             Update = new RelayCommand(() => update());
             Load = new RelayCommand(() => load());
-            ids = IDataModel.CreateNewDataModel(connectionString);
+            ids = m;
         }
+
         public CatalogViewModel _detail;
         public ObservableCollection<CatalogViewModel> Catalogs { get; set; }
         public ICommand Add { get; }
@@ -99,16 +100,20 @@ namespace LibraryViewModel
             {
                 _detail = value; 
                 OnPropertyChanged(nameof(Detail));
-                CatalogId = value.CatalogId;
-                Title = value.Title;
-                Author = value.Author;
-                NrOfPages = value.NrOfPages;
+                if (value != null)
+                {
+                    CatalogId = value.CatalogId;
+                    Title = value.Title;
+                    Author = value.Author;
+                    NrOfPages = value.NrOfPages;
+                }
             }
         }
 
         public void add()
         {
-           Catalogs.Add(new CatalogViewModel(CatalogId, Title, Author, NrOfPages));
+            Catalogs.Add(new CatalogViewModel(CatalogId, Title, Author, NrOfPages));
+            ids.AddCatalog(CatalogId, Title, Author, NrOfPages);
         }
         public void delete()
         {
@@ -120,6 +125,7 @@ namespace LibraryViewModel
                     break;
                 }
             }
+            ids.RemoveCatalog(CatalogId);
         }
         public void update()
         {

@@ -14,7 +14,6 @@
 	
   <ItemGroup>
     <ProjectReference Include="..\LibraryViewModel\LibraryViewModel.csproj" />
-    <ProjectReference Include="..\PresentationLayer\PresentationLayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

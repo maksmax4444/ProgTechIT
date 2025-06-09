@@ -20,14 +20,14 @@ namespace LibraryViewModel
             ids = IDataModel.CreateNewDataModel();
         }
 
-        public UsersViewModelCollection(string connectionString)
+        public UsersViewModelCollection(IDataModel m)
         {
             Users = new ObservableCollection<UsersViewModel> { };
             Add = new RelayCommand(() => add());
             Delete = new RelayCommand(() => delete());
             Update = new RelayCommand(() => update());
             Load = new RelayCommand(() => load());
-            ids = IDataModel.CreateNewDataModel(connectionString);
+            ids = m;
         }
         public UsersViewModel _detail;
         public ObservableCollection<UsersViewModel> Users { get; set; }
@@ -85,25 +85,30 @@ namespace LibraryViewModel
             {
                 _detail = value;
                 OnPropertyChanged(nameof(Detail));
-                UserId = value.UserId;
-                FirstName = value.FirstName;
-                LastName = value.LastName;
+                if (value != null)
+                {
+                    UserId = value.UserId;
+                    FirstName = value.FirstName;
+                    LastName = value.LastName;
+                }
             }
         }
         public void add()
         {
             Users.Add(new UsersViewModel(UserId, FirstName, LastName));
+            ids.AddUser(UserId, FirstName, LastName);
         }
         public void delete()
         {
             for (int i = Users.Count - 1; i >= 0; i--)
+            {
+                if (Users[i].UserId == UserId)
                 {
-                    if (Users[i].UserId == UserId)
-                    {
-                        Users.RemoveAt(i);
-                        break;
-                    }
+                    Users.RemoveAt(i);
+                    break;
                 }
+            }
+            ids.RemoveUser(UserId);
         }
         public void update()
         {

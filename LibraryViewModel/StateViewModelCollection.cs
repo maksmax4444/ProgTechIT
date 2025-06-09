@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using LibraryLogicLayer;
 using LibraryModel;
 
 namespace LibraryViewModel
@@ -21,14 +20,14 @@ namespace LibraryViewModel
             ids = IDataModel.CreateNewDataModel();
         }
 
-        public StateViewModelCollection(string connectionString)
+        public StateViewModelCollection(IDataModel m)
         {
             States = new ObservableCollection<StateViewModel> { };
             Add = new RelayCommand(() => add());
             Delete = new RelayCommand(() => delete());
             Update = new RelayCommand(() => update());
             Load = new RelayCommand(() => load());
-            ids = IDataModel.CreateNewDataModel(connectionString);
+            ids = m;
         }
         public StateViewModel _detail;
         public ObservableCollection<StateViewModel> States { get; set; }
@@ -86,25 +85,30 @@ namespace LibraryViewModel
             {
                 _detail = value;
                 OnPropertyChanged(nameof(Detail));
-                StateId = value.StateId;
-                NrOfBooks = value.NrOfBooks;
+                if (value != null)
+                {
+                    StateId = value.StateId;
+                    NrOfBooks = value.NrOfBooks;
+                }
             }
         }
         public void add()
         {
             States.Add(new StateViewModel(StateId, NrOfBooks, Catalog));
+            ids.AddState(Catalog, NrOfBooks, StateId);
         }
 
         public void delete()
         {
             for (int i = States.Count - 1; i >= 0; i--)
+            {
+                if (States[i].StateId == StateId)
                 {
-                    if (States[i].StateId == StateId)
-                    {
-                        States.RemoveAt(i);
-                        break;
-                    }
+                    States.RemoveAt(i);
+                    break;
                 }
+            }
+            ids.RemoveState(StateId);
         }
 
         public void update()

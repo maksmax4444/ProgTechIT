@@ -6,35 +6,55 @@ namespace PresentationLayerTest
     public sealed class PresentationTest1
     {
         [TestMethod]
-        public void CatalogModuleTest()
+        public void CatalogCollectionTest()
         {
-            CatalogViewModel t = new CatalogViewModel(0, "TestCatalog", "TestAuthor", 10);
-            Assert.IsTrue(t.NrOfPages == 10);
-            Assert.IsTrue(t.CatalogId == 0);
-            Assert.IsTrue(t.Title == "TestCatalog");
+            TestDataModel model = new TestDataModel();
+            CatalogViewModelCollection vm = new CatalogViewModelCollection(model);
+            vm.CatalogId = 0;
+            vm.Title = "Title";
+            vm.Author = "Author";
+            vm.NrOfPages = 1;
+            vm.add();
+            Assert.IsTrue(model.GetAllCatalog().Length == 1);
+            vm.delete();
+            Assert.IsTrue(model.GetAllCatalog().Length == 0);
         }
         [TestMethod]
-        public void UserModuleTest()
+        public void UsersCollectionTest()
         {
-            UsersViewModel t = new UsersViewModel(0, "TestName", "TestLastName");
-            Assert.IsTrue(t.UserId == 0);
-            Assert.IsTrue(t.FirstName == "TestName");
-            Assert.IsTrue(t.LastName == "TestLastName");
+            TestDataModel model = new TestDataModel();
+            UsersViewModelCollection vm = new UsersViewModelCollection(model);
+            vm.UserId = 0;
+            vm.FirstName = "f";
+            vm.LastName = "l";
+            vm.add();
+            Assert.IsTrue(model.GetAllUser().Length == 1);
+            vm.delete();
+            Assert.IsTrue(model.GetAllUser().Length == 0);
         }
         [TestMethod]
-        public void EventModuleTest()
+        public void EventCollectionTest()
         {
-            EventViewModel t = new EventViewModel(0, 10);
-            Assert.IsTrue(t.EventId == 0);
-            Assert.IsTrue(t.NrOfBooks == 10);
+            TestDataModel model = new TestDataModel();
+            EventViewModelCollection vm = new EventViewModelCollection(model);
+            vm.EventId = 0;
+            vm.NrOfBooks = 1;
+            vm.add();
+            Assert.IsTrue(model.GetAllEvent().Length == 1);
+            vm.delete();
+            Assert.IsTrue(model.GetAllEvent().Length == 0);
         }
         [TestMethod]
-        public void StateModuleTest()
+        public void StateCollectionTest()
         {
-            StateViewModel t = new StateViewModel(0, 1, 5);
-            Assert.IsTrue(t.StateId == 0);
-            Assert.IsTrue(t.NrOfBooks == 1);
-            Assert.IsTrue(t.CatalogId == 5);
+            TestDataModel model = new TestDataModel();
+            StateViewModelCollection vm = new StateViewModelCollection(model);
+            vm.StateId = 0;
+            vm.Catalog = 1;
+            vm.add();
+            Assert.IsTrue(model.GetAllState().Length == 1);
+            vm.delete();
+            Assert.IsTrue(model.GetAllState().Length == 0);
         }
     }
 }

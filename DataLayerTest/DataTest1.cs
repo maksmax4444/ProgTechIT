@@ -5,7 +5,7 @@ namespace DataLayerTest
 {
     [TestClass]
     public sealed class DataTest1
-    {/*[TestMethod]
+    {[TestMethod]
         public void CatalogTests()
         {
             IDataContext repo = IDataContext.CreateNewContext(connectionString);
@@ -91,7 +91,7 @@ namespace DataLayerTest
             Assert.IsNotNull (repo.GetAllCatalog());
             repo.RemoveCatalog(123);
             repo.CleanData();
-        }*/
+        }
         private const string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Maksym\\Documents\\ProgTechRepo\\ProgTechIT\\LibraryDataLayer\\LibraryDatabase.mdf;Integrated Security = True";
 
         

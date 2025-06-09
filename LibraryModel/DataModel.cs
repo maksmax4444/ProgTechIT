@@ -11,47 +11,56 @@ namespace LibraryModel
         private StateModel StateModelConversion(IStateService c) => new StateModel(c.id, c.noBooks, c.catalogId);
 
         static IDataService _service;
+        string c = "";
 
         public DataModel()
         {
             _service = IDataService.CreateNewDataService();
         }
 
-        public DataModel(string connectionString)
+        public DataModel(IDataService s)
         {
-            _service = IDataService.CreateNewDataService(connectionString);
+            _service = s;
         }
         public void AddCatalog(int id, string title, string author, int nOfPages) 
         {
+            if (c == "") return;
             _service.AddCatalog(id, title, author, nOfPages);
         }
         public void AddUser(int id, string fName, string lName)
         {
+            if (c == "") return;
             _service.AddUser(id, fName, lName);
         }
         public void AddEvent(int id, int stateId)
         {
+            if (c == "") return;
             _service.AddEvent(id, stateId);
         }
         public void AddState(int id, int nrOfBooks, int catalogId)
         {
+            if (c == "") return;
             _service.AddState(id, nrOfBooks, catalogId);
         }
 
         public void RemoveCatalog(int id)
         {
+            if (c == "") return;
             _service.RemoveCatalog(id);
         }
         public void RemoveUser(int id)
         {
+            if (c == "") return;
             _service.RemoveUser(id);
         }
         public void RemoveEvent(int id)
         {
+            if (c == "") return;
             _service.RemoveEvent(id);
         }
         public void RemoveState(int id)
         {
+            if (c == "") return;
             _service.RemoveState(id);
         }
 
@@ -106,16 +115,20 @@ namespace LibraryModel
         }
 
         public void UpdateCatalog(int id, string title, string author, int nOfPages) {
+            if (c == "") return;
             _service.UpdateCatalog(id, title, author, nOfPages);
         }
         public void UpdateUser(int id, string fName, string lName) {
+            if (c == "") return;
             _service.UpdateUser(id, fName, lName);
         }
         public void UpdateEvent(int id, int stateId) {
+            if (c == "") return;
             _service.UpdateEvent(id, stateId);
         }
         public void UpdateState(int id, int nrOfBooks, int catalogId)
         {
+            if (c == "") return;
             _service.UpdateState(id, nrOfBooks, catalogId);
         }
 

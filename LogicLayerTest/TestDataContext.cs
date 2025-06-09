@@ -97,7 +97,7 @@ namespace LogicLayerTest
             {
                 if (users.userId == id) return users;
             }
-            return users[0];
+            return new TestLibraryUser(0, "f" ,"l");
         }
 
         TestLibraryEvent GetEventFromId(int id)
@@ -106,7 +106,7 @@ namespace LogicLayerTest
             {
                 if (e.eventId == id) return e;
             }
-            return events[0];
+            return new TestLibraryEvent(0, new TestLibraryState(0, 1, new TestLibraryCatalog(0, "t", "a", 1)));
         }
 
         TestLibraryState GetStateFromId(int id)
@@ -115,7 +115,7 @@ namespace LogicLayerTest
             {
                 if (state.stateId == id) return state;
             }
-            return states[0];
+            return new TestLibraryState(0, 1, new TestLibraryCatalog(0, "t", "a", 1));
         }
 
         TestLibraryCatalog GetCatalogFromId(int id)
@@ -124,7 +124,7 @@ namespace LogicLayerTest
             {
                 if (catalog.catalogId == id) return catalog;
             }
-            return catalogs[0];
+            return new TestLibraryCatalog(0, "t", "a", 1);
         }
         
         public void CleanData()

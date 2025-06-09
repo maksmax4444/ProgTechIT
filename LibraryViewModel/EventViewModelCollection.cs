@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using LibraryLogicLayer;
 using LibraryModel;
 
 namespace LibraryViewModel
@@ -20,14 +19,14 @@ namespace LibraryViewModel
             ids = IDataModel.CreateNewDataModel();
         }
 
-        public EventViewModelCollection(string connectionString)
+        public EventViewModelCollection(IDataModel m)
         {
             Events = new ObservableCollection<EventViewModel> { };
             Add = new RelayCommand(() => add());
             Delete = new RelayCommand(() => delete());
             Update = new RelayCommand(() => update());
             Load = new RelayCommand(() => load());
-            ids = IDataModel.CreateNewDataModel(connectionString);
+            ids = m;
         }
         public EventViewModel _detail;
         public ObservableCollection<EventViewModel> Events { get; set; }
@@ -72,25 +71,30 @@ namespace LibraryViewModel
             {
                 _detail = value;
                 OnPropertyChanged(nameof(Detail));
-                EventId = value.EventId;
-                NrOfBooks = value.NrOfBooks;
+                if (value != null)
+                {
+                    EventId = value.EventId;
+                    NrOfBooks = value.NrOfBooks;
+                }
             }
         }
         public void add()
         {
             Events.Add(new EventViewModel(EventId, NrOfBooks));
+            ids.AddEvent(EventId, NrOfBooks);
         }
 
         public void delete()
         {
             for (int i = Events.Count - 1; i >= 0; i--)
+            {
+                if (Events[i].EventId == EventId)
                 {
-                    if (Events[i].EventId == EventId)
-                    {
-                        Events.RemoveAt(i);
-                        break;
-                    }
+                    Events.RemoveAt(i);
+                    break;
                 }
+            }
+            ids.RemoveEvent(EventId);
         }
 
         public void update()
